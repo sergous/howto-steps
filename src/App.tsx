@@ -3,6 +3,8 @@ import { Button } from 'antd';
 import logo from './logo.svg';
 import './App.css';
 import 'antd/dist/antd.css';
+import { STORE_ROOT } from './constants/stores';
+import { inject, observer } from 'mobx-react';
 
 class App extends Component {
     render() {
@@ -27,4 +29,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default inject(STORE_ROOT)(observer(App));
