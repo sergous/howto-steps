@@ -33,6 +33,7 @@
         "@types/node": "^10.12.15",
         "@types/react": "^16.7.17",
         "@types/react-dom": "^16.0.11",
-        "mobx-persist": "^0.4.1"
+        "mobx-persist": "^0.4.1",
+        "ts-jest": "^23.10.5"
     }
 }

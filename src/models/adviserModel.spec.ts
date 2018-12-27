@@ -16,7 +16,7 @@ describe('adviserModel', () => {
         question = new QuestionModel('How many miles in one kilometer');
     });
 
-    it('should have question', () => {
+    it('should answer new question', () => {
         adviser.answer(question);
         expect(adviser.questions).toContain(question);
     });
