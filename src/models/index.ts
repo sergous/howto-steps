@@ -3,3 +3,4 @@ export * from './askerModel';
 export * from './questionModel';
 export * from './stepModel';
 export * from './answerModel';
+export * from './adviserModel';

@@ -5,7 +5,7 @@ export class AskerModel extends UserModel {
 
     constructor(askerData: UserData) {
         super(askerData);
-        this.role_ = UserModel.ROLE.Asker;
+        this.role = UserModel.ROLE.Asker;
     }
 
     ask(question: QuestionModel) {

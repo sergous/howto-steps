@@ -2,7 +2,7 @@ import { UserData } from '.';
 export enum Role {
     Guest,
     Asker,
-    Answerer,
+    Adviser,
     Reviewer,
     Expert,
 }
