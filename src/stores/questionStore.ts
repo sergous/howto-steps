@@ -1,17 +1,17 @@
 import { RootStore } from '.';
 import { observable, action } from 'mobx';
-import { SolutionModel } from '../models';
+import { QuestionModel } from '../models';
 
-export class SolutionStore {
+export class QuestionStore {
     rootStore: RootStore;
-    @observable solutions: SolutionModel[] = [];
+    @observable questions: QuestionModel[] = [];
 
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
 
     @action
-    addSolution(solution: SolutionModel) {
-        this.solutions.push(solution);
+    addQuestion(question: QuestionModel) {
+        this.questions.push(question);
     }
 }

@@ -1,24 +1,24 @@
-import { RootStore, SolutionStore } from '.';
+import { RootStore, QuestionStore } from '.';
 import { QuestionModel } from '../models';
 
-describe('root store', () => {
+describe('question store', () => {
     let rootStore: RootStore;
-    let solutionStore: SolutionStore;
+    let questionStore: QuestionStore;
 
     beforeEach(() => {
         rootStore = new RootStore();
-        solutionStore = new SolutionStore(rootStore);
+        questionStore = new QuestionStore(rootStore);
     });
 
     it('should hold ref to root store', () => {
-        expect(solutionStore).toHaveProperty('rootStore');
-        expect(solutionStore.rootStore).toBeDefined();
-        expect(solutionStore.rootStore).toBeInstanceOf(RootStore);
+        expect(questionStore).toHaveProperty('rootStore');
+        expect(questionStore.rootStore).toBeDefined();
+        expect(questionStore.rootStore).toBeInstanceOf(RootStore);
     });
 
     it('should add new question', () => {
         const question = new QuestionModel('How is the whether today?');
-        solutionStore.addQuestion(question);
-        expect(solutionStore.questions).toContain(question);
+        questionStore.addQuestion(question);
+        expect(questionStore.questions).toContain(question);
     });
 });
