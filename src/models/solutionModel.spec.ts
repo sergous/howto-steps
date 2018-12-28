@@ -1,4 +1,5 @@
 import { SolutionModel, StepModel, AnswerModel, QuestionModel } from '.';
+import { RootStore, SolutionStore } from '../stores';
 
 describe('SolutionModel', () => {
     let answer: AnswerModel;
@@ -10,15 +11,23 @@ describe('SolutionModel', () => {
         const step1 = new StepModel('Take handle');
         const step2 = new StepModel('Push with handle');
         answer = new AnswerModel(step1, step2);
-        solution = new SolutionModel(question);
+
+        const rootStore = new RootStore();
+        const solutionStore = new SolutionStore(rootStore);
+        solution = new SolutionModel(solutionStore);
     });
 
-    it('should init with question', () => {
+    it('should hold ref to solution store', () => {
+        expect(solution).toHaveProperty('solutionStore_');
+    });
+    it('should set question', () => {
+        solution.question = question;
         expect(solution.question).toBe(question);
     });
 
     describe('update solution', () => {
         it('should update question query', () => {
+            solution.question = question;
             const updated = 'How to updated query feel?';
             solution.question.query = updated;
             expect(solution.question.query).toContain(updated);

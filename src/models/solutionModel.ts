@@ -1,12 +1,14 @@
 import { QuestionModel } from './questionModel';
 import { AnswerModel } from './answerModel';
+import { SolutionStore } from '../stores';
 
 export class SolutionModel {
-    private question_: QuestionModel;
+    private question_?: QuestionModel;
     private answers_: AnswerModel[] = [];
+    private solutionStore_: SolutionStore;
 
-    constructor(question: QuestionModel) {
-        this.question_ = question;
+    constructor(solutionStore: SolutionStore) {
+        this.solutionStore_ = solutionStore;
     }
 
     addAnswer(answer: AnswerModel) {
@@ -17,8 +19,8 @@ export class SolutionModel {
         this.question_ = question;
     }
 
-    get question(): QuestionModel {
-        return this.question_;
+    get question() {
+        return this.question_ || new QuestionModel();
     }
 
     get answers(): AnswerModel[] {
