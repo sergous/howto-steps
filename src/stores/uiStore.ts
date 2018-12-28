@@ -1,5 +1,5 @@
 import { observable } from 'mobx';
-import { RootStore } from './rootStore';
+import { RootStore } from '.';
 export class UiStore {
     readonly rootStore: RootStore;
     @observable pendingRequestsCount: number = 0;

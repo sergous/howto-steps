@@ -1,4 +1,4 @@
-import { UiStore } from './uiStore';
+import { UiStore } from '.';
 
 export class RootStore {
     uiStore: UiStore;
