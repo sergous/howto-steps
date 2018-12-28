@@ -1,5 +1,5 @@
 import { RootStore, SolutionStore } from '.';
-import { QuestionModel, SolutionModel } from '../models';
+import { SolutionModel } from '../models';
 
 describe('solution store', () => {
     let rootStore: RootStore;
@@ -17,8 +17,7 @@ describe('solution store', () => {
     });
 
     it('should add new solution', () => {
-        const question = new QuestionModel('How is the whether tomorrow?');
-        const solution = new SolutionModel(question);
+        const solution = new SolutionModel(solutionStore);
         solutionStore.addSolution(solution);
         expect(solutionStore.solutions).toContain(solution);
     });

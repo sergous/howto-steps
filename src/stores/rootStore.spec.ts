@@ -1,6 +1,11 @@
-import { RootStore, UiStore } from '.';
-import { QuestionStore } from './questionStore';
-import { SolutionStore } from './solutionStore';
+import {
+    RootStore,
+    UiStore,
+    QuestionStore,
+    SolutionStore,
+    AnswerStore,
+    StepStore,
+} from '.';
 
 describe('root store', () => {
     let rootStore: RootStore;
@@ -25,5 +30,17 @@ describe('root store', () => {
         expect(rootStore).toHaveProperty('solutionStore');
         expect(rootStore.solutionStore).toBeDefined();
         expect(rootStore.solutionStore).toBeInstanceOf(SolutionStore);
+    });
+
+    it('should hold ref to answer store', () => {
+        expect(rootStore).toHaveProperty('answerStore');
+        expect(rootStore.answerStore).toBeDefined();
+        expect(rootStore.answerStore).toBeInstanceOf(AnswerStore);
+    });
+
+    it('should hold ref to step store', () => {
+        expect(rootStore).toHaveProperty('stepStore');
+        expect(rootStore.stepStore).toBeDefined();
+        expect(rootStore.stepStore).toBeInstanceOf(StepStore);
     });
 });
