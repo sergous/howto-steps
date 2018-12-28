@@ -4,3 +4,4 @@ export * from './questionModel';
 export * from './stepModel';
 export * from './answerModel';
 export * from './adviserModel';
+export * from './solutionModel';
