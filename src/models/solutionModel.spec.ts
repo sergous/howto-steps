@@ -42,7 +42,7 @@ describe('SolutionModel', () => {
 
         describe('update solution', () => {
             it('should not update id second time', () => {
-                solution.id = Date.now();
+                solution.id = solutionStore.newId;
                 expect(() => (solution.id = 1)).toThrowError(
                     SolutionModelError,
                 );

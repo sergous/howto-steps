@@ -2,6 +2,7 @@ import { RootStore } from '.';
 import { observable, action } from 'mobx';
 import { SolutionModel } from '../models';
 import { SolutionStoreError } from '../errors';
+import uniqid from 'uniqid';
 
 export class SolutionStore {
     rootStore: RootStore;
@@ -19,8 +20,8 @@ export class SolutionStore {
         return solution;
     }
 
-    private get newId() {
-        return Date.now();
+    private get newId(): string {
+        return uniqid();
     }
 
     @action

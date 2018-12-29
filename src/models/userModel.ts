@@ -8,7 +8,7 @@ export enum Role {
 }
 
 export interface UserData {
-    id: number;
+    id: string;
     name: string;
     email: string;
     role?: Role;
@@ -16,7 +16,7 @@ export interface UserData {
 
 export class UserModel {
     static ROLE = Role;
-    id: number = 0;
+    id?: string;
     name: string = '';
     email: string = '';
     protected role_: Role;

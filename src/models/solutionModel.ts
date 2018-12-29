@@ -4,7 +4,7 @@ import { SolutionModelError } from '../errors';
 import { observable } from 'mobx';
 
 export class SolutionModel {
-    @observable protected id_?: number;
+    @observable protected id_?: string;
     @observable private question_?: QuestionModel;
     private answers_: AnswerModel[] = [];
     private solutionStore_: SolutionStore;
@@ -13,7 +13,7 @@ export class SolutionModel {
         this.solutionStore_ = solutionStore;
     }
 
-    set id(id: number) {
+    set id(id: string) {
         if (this.id_) {
             throw new SolutionModelError(
                 'Immutable solution id is already set',
