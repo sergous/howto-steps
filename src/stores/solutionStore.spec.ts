@@ -1,9 +1,11 @@
 import { RootStore, SolutionStore } from '.';
-import { SolutionModel } from '../models';
+import { SolutionModel, QuestionModel } from '../models';
+import { SolutionStoreError } from '../errors';
 
 describe('solution store', () => {
     let rootStore: RootStore;
     let solutionStore: SolutionStore;
+    let solution: SolutionModel;
 
     beforeEach(() => {
         rootStore = new RootStore();
@@ -16,9 +18,30 @@ describe('solution store', () => {
         expect(solutionStore.rootStore).toBeInstanceOf(RootStore);
     });
 
-    it('should add new solution', () => {
-        const solution = new SolutionModel(solutionStore);
-        solutionStore.addSolution(solution);
-        expect(solutionStore.solutions).toContain(solution);
+    describe('with solution', () => {
+        beforeEach(() => {
+            solution = solutionStore.createSolution();
+        });
+
+        it('should have solution', () => {
+            expect(solutionStore.solutions).toContain(solution);
+        });
+
+        it('should find solution', () => {
+            expect(solutionStore.findOne(solution)).toBe(solution);
+        });
+
+        it('should not add same solution', () => {
+            expect(() => solutionStore.addSolution(solution)).toThrowError(
+                SolutionStoreError,
+            );
+        });
+
+        it('should update solution', () => {
+            const question = new QuestionModel();
+            const s = solutionStore.updateSolution(solution);
+            expect(s).toBeDefined();
+            expect(s!.question).toEqual(question);
+        });
     });
 });
