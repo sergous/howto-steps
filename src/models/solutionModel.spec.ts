@@ -1,6 +1,5 @@
 import { SolutionModel, StepModel, AnswerModel, QuestionModel } from '.';
 import { RootStore, SolutionStore } from '../stores';
-import { CommonModelError } from '../errors';
 
 describe('SolutionModel', () => {
     let solution: SolutionModel;
@@ -12,11 +11,6 @@ describe('SolutionModel', () => {
 
         const rootStore = new RootStore();
         solutionStore = new SolutionStore(rootStore);
-    });
-
-    it('should create new solution', () => {
-        solution = new SolutionModel(solutionStore);
-        expect(solution.id).toBeDefined();
     });
 
     describe('with solution', () => {
@@ -42,11 +36,6 @@ describe('SolutionModel', () => {
             beforeEach(() => {
                 updatedQuestion = new QuestionModel(
                     'How to updated question feel?',
-                );
-            });
-            it('should not update id second time', () => {
-                expect(() => (solution.id = solutionStore.newId)).toThrowError(
-                    CommonModelError,
                 );
             });
             it('should update question query', () => {
