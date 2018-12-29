@@ -1,11 +1,7 @@
-import { StepModel } from '.';
+import { StepModel, CommonModel } from '.';
 
-export class AnswerModel {
-    private steps_: StepModel[];
-
-    constructor(...steps: StepModel[]) {
-        this.steps_ = steps;
-    }
+export class AnswerModel extends CommonModel {
+    private steps_: StepModel[] = [];
 
     set steps(steps: StepModel[]) {
         this.steps_ = steps;
