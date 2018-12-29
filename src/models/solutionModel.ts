@@ -1,16 +1,22 @@
 import { QuestionModel, AnswerModel } from '.';
 import { SolutionStore } from '../stores';
 import { SolutionModelError } from '../errors';
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 
 export class SolutionModel {
     @observable protected id_?: string;
     @observable private question_?: QuestionModel;
-    private answers_: AnswerModel[] = [];
-    private solutionStore_: SolutionStore;
+    @observable private answers_: AnswerModel[] = [];
+    private store_: SolutionStore;
 
     constructor(solutionStore: SolutionStore) {
-        this.solutionStore_ = solutionStore;
+        this.store_ = solutionStore;
+        this.bindToStore();
+    }
+
+    @action
+    private bindToStore() {
+        Object.assign(this, this.store_.createSolution(this));
     }
 
     set id(id: string | undefined) {
@@ -28,7 +34,6 @@ export class SolutionModel {
 
     set question(question: QuestionModel | undefined) {
         this.question_ = question;
-        this.solutionStore_.updateSolution(this);
     }
 
     get question() {

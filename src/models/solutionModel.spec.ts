@@ -16,13 +16,10 @@ describe('SolutionModel', () => {
 
         const rootStore = new RootStore();
         solutionStore = new SolutionStore(rootStore);
-        solutionStore.addSolution = jest.fn();
-        solutionStore.updateSolution = jest.fn();
     });
 
     it('should create new solution', () => {
-        solution = solutionStore.createSolution();
-        expect(solutionStore.addSolution).toBeCalledWith(solution);
+        solution = new SolutionModel(solutionStore);
         expect(solution.id).toBeDefined();
     });
 
@@ -32,20 +29,26 @@ describe('SolutionModel', () => {
         });
 
         it('should hold ref to solution store', () => {
-            expect(solution).toHaveProperty('solutionStore_');
+            expect(solution).toHaveProperty('store_');
         });
         it('should not have question', () => {
             expect(solution.question).toBeUndefined();
         });
         it('should set question', () => {
             solution.question = question;
-            expect(solutionStore.updateSolution).toBeCalled();
-            expect(solution.question).toBe(question);
+            const s = solutionStore.findOne(solution);
+            expect(s).toBeDefined();
+            expect(s!.question).toBe(question);
         });
 
         describe('update solution', () => {
+            let updatedQuestion: QuestionModel;
+            beforeEach(() => {
+                updatedQuestion = new QuestionModel(
+                    'How to updated question feel?',
+                );
+            });
             it('should not update id second time', () => {
-                solution.id = solutionStore.newId;
                 expect(() => (solution.id = solutionStore.newId)).toThrowError(
                     SolutionModelError,
                 );
@@ -57,11 +60,14 @@ describe('SolutionModel', () => {
                 expect(solution.question.query).toContain(updated);
             });
             it('should update question', () => {
-                const updated = new QuestionModel(
-                    'How to updated question feel?',
-                );
-                solution.question = updated;
-                expect(solution.question).toBe(updated);
+                solution.question = updatedQuestion;
+                expect(solution.question).toBe(updatedQuestion);
+            });
+            it('should update question in solution store', () => {
+                solution.question = updatedQuestion;
+                const s = solutionStore.findOne(solution);
+                expect(s).toBeDefined();
+                expect(s!.question).toBe(updatedQuestion);
             });
         });
 
@@ -69,8 +75,13 @@ describe('SolutionModel', () => {
             beforeEach(() => {
                 solution.addAnswer(answer);
             });
-            it('should have answer', () => {
+            it('should contain answer', () => {
                 expect(solution.answers).toContain(answer);
+            });
+            it('should contain answer in solution store', () => {
+                const s = solutionStore.findOne(solution);
+                expect(s).toBeDefined();
+                expect(s!.answers).toContain(answer);
             });
         });
     });

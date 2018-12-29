@@ -13,8 +13,9 @@ export class SolutionStore {
     }
 
     @action
-    createSolution(): SolutionModel {
-        const solution = new SolutionModel(this);
+    createSolution(
+        solution: SolutionModel = new SolutionModel(this),
+    ): SolutionModel {
         solution.id = this.newId;
         this.addSolution(solution);
         return solution;
@@ -43,7 +44,7 @@ export class SolutionStore {
         return s;
     }
 
-    findOne(solution: SolutionModel) {
+    findOne(solution: SolutionModel): SolutionModel | undefined {
         return this.solutions.find(s => !!s.id && s.id === solution.id);
     }
 }

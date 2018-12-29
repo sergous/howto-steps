@@ -20,7 +20,7 @@ describe('solution store', () => {
 
     describe('with solution', () => {
         beforeEach(() => {
-            solution = solutionStore.createSolution();
+            solution = new SolutionModel(solutionStore);
         });
 
         it('should have solution', () => {
