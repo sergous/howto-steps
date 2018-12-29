@@ -1,14 +1,14 @@
-import { RootStore } from '.';
+import { RootStore, StoreBase } from '.';
 import { observable, action } from 'mobx';
 import { SolutionModel } from '../models';
 import { SolutionStoreError } from '../errors';
-import uniqid from 'uniqid';
 
-export class SolutionStore {
+export class SolutionStore extends StoreBase {
     rootStore: RootStore;
     @observable solutions: SolutionModel[] = [];
 
     constructor(rootStore: RootStore) {
+        super();
         this.rootStore = rootStore;
     }
 
@@ -19,10 +19,6 @@ export class SolutionStore {
         solution.id = this.newId;
         this.addSolution(solution);
         return solution;
-    }
-
-    get newId(): string {
-        return uniqid();
     }
 
     @action
@@ -45,6 +41,6 @@ export class SolutionStore {
     }
 
     findOne(solution: SolutionModel): SolutionModel | undefined {
-        return this.solutions.find(s => !!s.id && s.id === solution.id);
+        return this.solutions.find(s => !!solution.id && s.id === solution.id);
     }
 }
