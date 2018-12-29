@@ -34,6 +34,9 @@ describe('SolutionModel', () => {
         it('should hold ref to solution store', () => {
             expect(solution).toHaveProperty('solutionStore_');
         });
+        it('should not have question', () => {
+            expect(solution.question).toBeUndefined();
+        });
         it('should set question', () => {
             solution.question = question;
             expect(solutionStore.updateSolution).toBeCalled();
@@ -43,7 +46,7 @@ describe('SolutionModel', () => {
         describe('update solution', () => {
             it('should not update id second time', () => {
                 solution.id = solutionStore.newId;
-                expect(() => (solution.id = 1)).toThrowError(
+                expect(() => (solution.id = solutionStore.newId)).toThrowError(
                     SolutionModelError,
                 );
             });

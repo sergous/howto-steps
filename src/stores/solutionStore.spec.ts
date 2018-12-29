@@ -39,6 +39,7 @@ describe('solution store', () => {
 
         it('should update solution', () => {
             const question = new QuestionModel();
+            solution.question = question;
             const s = solutionStore.updateSolution(solution);
             expect(s).toBeDefined();
             expect(s!.question).toEqual(question);

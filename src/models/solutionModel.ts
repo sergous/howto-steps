@@ -13,7 +13,7 @@ export class SolutionModel {
         this.solutionStore_ = solutionStore;
     }
 
-    set id(id: string) {
+    set id(id: string | undefined) {
         if (this.id_) {
             throw new SolutionModelError(
                 'Immutable solution id is already set',
@@ -23,19 +23,16 @@ export class SolutionModel {
     }
 
     get id() {
-        if (!this.id_) {
-            throw new SolutionModelError('Solution id has not set');
-        }
         return this.id_;
     }
 
-    set question(question: QuestionModel) {
+    set question(question: QuestionModel | undefined) {
         this.question_ = question;
         this.solutionStore_.updateSolution(this);
     }
 
     get question() {
-        return this.question_ || new QuestionModel();
+        return this.question_;
     }
 
     addAnswer(answer: AnswerModel) {

@@ -20,7 +20,7 @@ export class SolutionStore {
         return solution;
     }
 
-    private get newId(): string {
+    get newId(): string {
         return uniqid();
     }
 
