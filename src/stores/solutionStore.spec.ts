@@ -44,5 +44,28 @@ describe('solution store', () => {
             expect(s).toBeDefined();
             expect(s!.question).toEqual(question);
         });
+        it('should not update solution', () => {
+            const notExistingSolution = <SolutionModel>{
+                ...solution,
+                id: solutionStore.newId,
+            };
+            expect(() =>
+                solutionStore.updateSolution(notExistingSolution),
+            ).toThrowError(SolutionStoreError);
+        });
+
+        it('should remove solution', () => {
+            solutionStore.removeSolution(solution);
+            expect(solutionStore.solutions).not.toContain(solution);
+        });
+        it('should not remove solution', () => {
+            const notExistingSolution = <SolutionModel>{
+                ...solution,
+                id: solutionStore.newId,
+            };
+            expect(() =>
+                solutionStore.removeSolution(notExistingSolution),
+            ).toThrowError(SolutionStoreError);
+        });
     });
 });

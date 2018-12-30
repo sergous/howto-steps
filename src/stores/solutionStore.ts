@@ -35,9 +35,24 @@ export class SolutionStore extends StoreBase {
     @action
     updateSolution(solution: SolutionModel) {
         let s = this.findOne(solution);
-        if (!s) return;
-        Object.assign(s, solution);
-        return s;
+        if (!s) {
+            throw new SolutionStoreError('Solution not found');
+        } else {
+            Object.assign(s, solution);
+            return s;
+        }
+    }
+
+    @action
+    removeSolution(solution: SolutionModel) {
+        let s = this.findOne(solution);
+        if (!s) {
+            throw new SolutionStoreError('Solution not found');
+        } else {
+            this.solutions = this.solutions.filter(
+                s => !!solution.id && s.id !== solution.id,
+            );
+        }
     }
 
     findOne(solution: SolutionModel): SolutionModel | undefined {
