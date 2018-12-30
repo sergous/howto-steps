@@ -1,6 +1,6 @@
 import { RootStore, SolutionStore } from '.';
 import { SolutionModel, QuestionModel } from '../models';
-import { SolutionStoreError } from '../errors';
+import { StoreBaseError } from '../errors';
 
 describe('solution store', () => {
     let rootStore: RootStore;
@@ -33,7 +33,7 @@ describe('solution store', () => {
 
         it('should not add same solution', () => {
             expect(() => solutionStore.addSolution(solution)).toThrowError(
-                SolutionStoreError,
+                StoreBaseError,
             );
         });
 
@@ -51,7 +51,7 @@ describe('solution store', () => {
             };
             expect(() =>
                 solutionStore.updateSolution(notExistingSolution),
-            ).toThrowError(SolutionStoreError);
+            ).toThrowError(StoreBaseError);
         });
 
         it('should remove solution', () => {
@@ -65,7 +65,7 @@ describe('solution store', () => {
             };
             expect(() =>
                 solutionStore.removeSolution(notExistingSolution),
-            ).toThrowError(SolutionStoreError);
+            ).toThrowError(StoreBaseError);
         });
     });
 });

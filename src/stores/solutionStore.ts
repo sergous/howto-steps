@@ -5,11 +5,18 @@ import { SolutionStoreError } from '../errors';
 
 export class SolutionStore extends StoreBase {
     rootStore: RootStore;
-    @observable solutions: SolutionModel[] = [];
 
     constructor(rootStore: RootStore) {
         super();
         this.rootStore = rootStore;
+    }
+
+    set solutions(solutions: SolutionModel[]) {
+        this.items = solutions;
+    }
+
+    get solutions() {
+        return <SolutionModel[]>this.items;
     }
 
     @action
@@ -22,40 +29,11 @@ export class SolutionStore extends StoreBase {
     }
 
     @action
-    addSolution(solution: SolutionModel) {
-        const s = this.findOne(solution);
-
-        if (s) {
-            throw new SolutionStoreError('Solution already exists');
-        } else {
-            this.solutions.push(solution);
-        }
-    }
+    addSolution = this.addItem;
 
     @action
-    updateSolution(solution: SolutionModel) {
-        let s = this.findOne(solution);
-        if (!s) {
-            throw new SolutionStoreError('Solution not found');
-        } else {
-            Object.assign(s, solution);
-            return s;
-        }
-    }
+    updateSolution = this.updateItem;
 
     @action
-    removeSolution(solution: SolutionModel) {
-        let s = this.findOne(solution);
-        if (!s) {
-            throw new SolutionStoreError('Solution not found');
-        } else {
-            this.solutions = this.solutions.filter(
-                s => !!solution.id && s.id !== solution.id,
-            );
-        }
-    }
-
-    findOne(solution: SolutionModel): SolutionModel | undefined {
-        return this.solutions.find(s => !!solution.id && s.id === solution.id);
-    }
+    removeSolution = this.removeItem;
 }
