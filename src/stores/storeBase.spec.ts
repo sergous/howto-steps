@@ -8,6 +8,11 @@ describe('StoreBase', () => {
     beforeEach(() => {
         storeBase = new StoreBase();
     });
+
+    it('should set ERROR', () => {
+        expect(storeBase.ERROR).toBe(StoreBaseError);
+    });
+
     describe('newId', () => {
         it('should return new string id', () => {
             const newId = storeBase.newId;
@@ -34,11 +39,11 @@ describe('StoreBase', () => {
         });
 
         it('should not add same item', () => {
-            expect(() => storeBase.addItem(item)).toThrowError(StoreBaseError);
+            expect(() => storeBase.add(item)).toThrowError(storeBase.ERROR);
         });
 
         it('should update item', () => {
-            const i = storeBase.updateItem(item);
+            const i = storeBase.update(item);
             expect(i).toBeDefined();
             expect(i!.id).toEqual(item.id);
         });
@@ -47,13 +52,13 @@ describe('StoreBase', () => {
                 ...item,
                 id: storeBase.newId,
             };
-            expect(() => storeBase.updateItem(notExistingItem)).toThrowError(
-                StoreBaseError,
+            expect(() => storeBase.update(notExistingItem)).toThrowError(
+                storeBase.ERROR,
             );
         });
 
         it('should remove item', () => {
-            storeBase.removeItem(item);
+            storeBase.remove(item);
             expect(storeBase.items).not.toContain(item);
         });
         it('should not remove item', () => {
@@ -61,8 +66,8 @@ describe('StoreBase', () => {
                 ...item,
                 id: storeBase.newId,
             };
-            expect(() => storeBase.removeItem(notExistingItem)).toThrowError(
-                StoreBaseError,
+            expect(() => storeBase.remove(notExistingItem)).toThrowError(
+                storeBase.ERROR,
             );
         });
     });

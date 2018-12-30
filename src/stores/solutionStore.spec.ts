@@ -1,6 +1,6 @@
 import { RootStore, SolutionStore } from '.';
 import { SolutionModel, QuestionModel } from '../models';
-import { StoreBaseError } from '../errors';
+import { SolutionStoreError } from '../errors';
 
 describe('solution store', () => {
     let rootStore: RootStore;
@@ -10,6 +10,10 @@ describe('solution store', () => {
     beforeEach(() => {
         rootStore = new RootStore();
         solutionStore = new SolutionStore(rootStore);
+    });
+
+    it('should set ERROR', () => {
+        expect(solutionStore.ERROR).toBe(SolutionStoreError);
     });
 
     it('should hold ref to root store', () => {
@@ -32,15 +36,15 @@ describe('solution store', () => {
         });
 
         it('should not add same solution', () => {
-            expect(() => solutionStore.addSolution(solution)).toThrowError(
-                StoreBaseError,
+            expect(() => solutionStore.add(solution)).toThrowError(
+                solutionStore.ERROR,
             );
         });
 
         it('should update solution', () => {
             const question = new QuestionModel();
             solution.question = question;
-            const s = solutionStore.updateSolution(solution);
+            const s = solutionStore.update(solution);
             expect(s).toBeDefined();
             expect(s!.question).toEqual(question);
         });
@@ -50,12 +54,12 @@ describe('solution store', () => {
                 id: solutionStore.newId,
             };
             expect(() =>
-                solutionStore.updateSolution(notExistingSolution),
-            ).toThrowError(StoreBaseError);
+                solutionStore.update(notExistingSolution),
+            ).toThrowError(solutionStore.ERROR);
         });
 
         it('should remove solution', () => {
-            solutionStore.removeSolution(solution);
+            solutionStore.remove(solution);
             expect(solutionStore.solutions).not.toContain(solution);
         });
         it('should not remove solution', () => {
@@ -64,8 +68,8 @@ describe('solution store', () => {
                 id: solutionStore.newId,
             };
             expect(() =>
-                solutionStore.removeSolution(notExistingSolution),
-            ).toThrowError(StoreBaseError);
+                solutionStore.remove(notExistingSolution),
+            ).toThrowError(solutionStore.ERROR);
         });
     });
 });

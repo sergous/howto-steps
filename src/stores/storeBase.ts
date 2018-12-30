@@ -1,38 +1,42 @@
 import uniqid from 'uniqid';
-import { CommonModel } from '../models';
+import { CommonModel, SolutionModel } from '../models';
 import { observable, action } from 'mobx';
 import { StoreBaseError } from '../errors';
 
+// CommonModel children
+type ItemModel = any;
+
 export class StoreBase {
-    @observable items: CommonModel[] = [];
+    ERROR = StoreBaseError;
+    @observable items: ItemModel[] = [];
 
     get newId(): string {
         return uniqid();
     }
 
     @action
-    createItem(item: CommonModel = new CommonModel()): CommonModel {
+    createItem(item: ItemModel = new CommonModel()): ItemModel {
         item.id = this.newId;
-        this.addItem(item);
+        this.add(item);
         return item;
     }
 
     @action
-    addItem(item: CommonModel) {
+    add(item: ItemModel) {
         const i = this.findOne(item);
 
         if (i) {
-            throw new StoreBaseError('Item already exists');
+            throw new this.ERROR('Item already exists');
         } else {
             this.items.push(item);
         }
     }
 
     @action
-    updateItem(item: CommonModel) {
+    update(item: ItemModel) {
         let i = this.findOne(item);
         if (!i) {
-            throw new StoreBaseError('Item not found');
+            throw new this.ERROR('Item not found');
         } else {
             Object.assign(i, item);
             return i;
@@ -40,16 +44,16 @@ export class StoreBase {
     }
 
     @action
-    removeItem(item: CommonModel) {
+    remove(item: ItemModel) {
         let i = this.findOne(item);
         if (!i) {
-            throw new StoreBaseError('Item not found');
+            throw new this.ERROR('Item not found');
         } else {
             this.items = this.items.filter(i => !!item.id && i.id !== item.id);
         }
     }
 
-    findOne(item: CommonModel): CommonModel | undefined {
+    findOne(item: ItemModel): ItemModel | undefined {
         return this.items.find(i => !!item.id && i.id === item.id);
     }
 }

@@ -4,6 +4,7 @@ import { SolutionModel } from '../models';
 import { SolutionStoreError } from '../errors';
 
 export class SolutionStore extends StoreBase {
+    ERROR = SolutionStoreError;
     rootStore: RootStore;
 
     constructor(rootStore: RootStore) {
@@ -24,16 +25,7 @@ export class SolutionStore extends StoreBase {
         solution: SolutionModel = new SolutionModel(this),
     ): SolutionModel {
         solution.id = this.newId;
-        this.addSolution(solution);
+        this.add(solution);
         return solution;
     }
-
-    @action
-    addSolution = this.addItem;
-
-    @action
-    updateSolution = this.updateItem;
-
-    @action
-    removeSolution = this.removeItem;
 }
