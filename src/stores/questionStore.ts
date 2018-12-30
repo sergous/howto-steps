@@ -1,12 +1,13 @@
-import { RootStore } from '.';
+import { RootStore, StoreBase } from '.';
 import { observable, action } from 'mobx';
 import { QuestionModel } from '../models';
 
-export class QuestionStore {
+export class QuestionStore extends StoreBase {
     rootStore: RootStore;
     @observable questions: QuestionModel[] = [];
 
     constructor(rootStore: RootStore) {
+        super();
         this.rootStore = rootStore;
     }
 
