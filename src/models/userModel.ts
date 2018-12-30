@@ -1,4 +1,4 @@
-import { UserData } from '.';
+import { UserData, CommonModel } from '.';
 export enum Role {
     Guest,
     Asker,
@@ -14,14 +14,14 @@ export interface UserData {
     role?: Role;
 }
 
-export class UserModel {
+export class UserModel extends CommonModel {
     static ROLE = Role;
-    id?: string;
     name: string = '';
     email: string = '';
     protected role_: Role;
 
     constructor(userData: UserData) {
+        super();
         Object.assign(this, userData);
         this.role_ = userData.role || Role.Guest;
     }

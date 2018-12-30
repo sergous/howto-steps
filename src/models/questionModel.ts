@@ -1,9 +1,10 @@
-import { AnswerModel } from '.';
+import { AnswerModel, CommonModel } from '.';
 
-export class QuestionModel {
+export class QuestionModel extends CommonModel {
     private query_: string;
 
     constructor(query: string = '') {
+        super();
         this.query_ = query;
     }
 

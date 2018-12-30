@@ -1,8 +1,11 @@
-export class StepModel {
+import { CommonModel } from '.';
+
+export class StepModel extends CommonModel {
     private name_: string;
     private description_: string;
 
     constructor(name: string, description: string = '') {
+        super();
         this.name_ = name;
         this.description_ = description;
     }
