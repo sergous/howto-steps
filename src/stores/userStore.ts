@@ -1,8 +1,8 @@
-import { RootStore, StoreBase } from '.';
+import { RootStore, StoreCore } from '.';
 import { observable, action } from 'mobx';
 import { UserModel } from '../models';
 
-export class UserStore extends StoreBase {
+export class UserStore extends StoreCore {
     rootStore: RootStore;
     @observable users: UserModel[] = [];
 

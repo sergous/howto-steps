@@ -1,8 +1,8 @@
-import { RootStore, StoreBase } from '.';
+import { RootStore, StoreCore } from '.';
 import { observable, action } from 'mobx';
 import { StepModel } from '../models';
 
-export class StepStore extends StoreBase {
+export class StepStore extends StoreCore {
     rootStore: RootStore;
     @observable steps: StepModel[] = [];
 

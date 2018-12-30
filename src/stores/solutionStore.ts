@@ -1,9 +1,9 @@
-import { RootStore, StoreBase } from '.';
+import { RootStore, StoreCore } from '.';
 import { observable, action } from 'mobx';
 import { SolutionModel } from '../models';
 import { SolutionStoreError } from '../errors';
 
-export class SolutionStore extends StoreBase {
+export class SolutionStore extends StoreCore {
     ERROR = SolutionStoreError;
     rootStore: RootStore;
 

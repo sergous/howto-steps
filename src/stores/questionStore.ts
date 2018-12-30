@@ -1,8 +1,8 @@
-import { RootStore, StoreBase } from '.';
+import { RootStore, StoreCore } from '.';
 import { observable, action } from 'mobx';
 import { QuestionModel } from '../models';
 
-export class QuestionStore extends StoreBase {
+export class QuestionStore extends StoreCore {
     rootStore: RootStore;
     @observable questions: QuestionModel[] = [];
 

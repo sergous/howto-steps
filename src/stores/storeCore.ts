@@ -1,13 +1,13 @@
 import uniqid from 'uniqid';
 import { CommonModel, SolutionModel } from '../models';
 import { observable, action } from 'mobx';
-import { StoreBaseError } from '../errors';
+import { StoreCoreError } from '../errors';
 
 // CommonModel children
 type ItemModel = any;
 
-export class StoreBase {
-    ERROR = StoreBaseError;
+export class StoreCore {
+    ERROR = StoreCoreError;
     @observable items: ItemModel[] = [];
 
     get newId(): string {

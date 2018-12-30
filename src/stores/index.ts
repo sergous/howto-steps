@@ -1,5 +1,5 @@
-import { StoreBase } from './storeBase';
-export { StoreBase };
+import { StoreCore } from './storeCore';
+export { StoreCore };
 export * from './rootStore';
 export * from './uiStore';
 export * from './solutionStore';
