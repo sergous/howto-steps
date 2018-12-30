@@ -6,6 +6,7 @@ import {
     AnswerStore,
     StepStore,
     UserStore,
+    StoreCore,
 } from '.';
 
 describe('root store', () => {
@@ -13,6 +14,19 @@ describe('root store', () => {
 
     beforeEach(() => {
         rootStore = new RootStore();
+    });
+
+    describe('StoreCore', () => {
+        it('should not store ref to storeCore', () => {
+            expect(rootStore).not.toHaveProperty('storeCore');
+        });
+        // RootStore should not bind StoreCore, only it's children
+        it('should not have any store with type StoreCore', () => {
+            let store: any;
+            for (store in rootStore) {
+                expect(store instanceof StoreCore).toBeFalsy();
+            }
+        });
     });
 
     it('should hold ref to ui store', () => {
