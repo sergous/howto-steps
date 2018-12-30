@@ -1,10 +1,11 @@
 import { QuestionModel } from './questionModel';
 import { AdviserModel } from '.';
+import { UserData } from './userModel';
 
-const userData = {
-    id: 1,
-    name: 'User Name',
-    email: 'user@host.com',
+const advisorData: UserData = {
+    id: 'advisorId',
+    name: 'Advisor Name',
+    email: 'advisor@host.com',
 };
 
 describe('adviserModel', () => {
@@ -12,7 +13,7 @@ describe('adviserModel', () => {
     let question: QuestionModel;
 
     beforeEach(() => {
-        adviser = new AdviserModel(userData);
+        adviser = new AdviserModel(advisorData);
         question = new QuestionModel('How many miles in one kilometer');
     });
 

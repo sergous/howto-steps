@@ -5,6 +5,7 @@ import {
     AnswerStore,
     StepStore,
 } from '.';
+import { UserStore } from './userStore';
 
 export class RootStore {
     uiStore: UiStore;
@@ -12,6 +13,7 @@ export class RootStore {
     solutionStore: SolutionStore;
     answerStore: AnswerStore;
     stepStore: StepStore;
+    userStore: UserStore;
 
     constructor() {
         this.uiStore = new UiStore(this);
@@ -19,5 +21,6 @@ export class RootStore {
         this.solutionStore = new SolutionStore(this);
         this.answerStore = new AnswerStore(this);
         this.stepStore = new StepStore(this);
+        this.userStore = new UserStore(this);
     }
 }

@@ -5,6 +5,7 @@ import {
     SolutionStore,
     AnswerStore,
     StepStore,
+    UserStore,
 } from '.';
 
 describe('root store', () => {
@@ -42,5 +43,11 @@ describe('root store', () => {
         expect(rootStore).toHaveProperty('stepStore');
         expect(rootStore.stepStore).toBeDefined();
         expect(rootStore.stepStore).toBeInstanceOf(StepStore);
+    });
+
+    it('should hold ref to user store', () => {
+        expect(rootStore).toHaveProperty('userStore');
+        expect(rootStore.userStore).toBeDefined();
+        expect(rootStore.userStore).toBeInstanceOf(UserStore);
     });
 });

@@ -1,7 +1,8 @@
 import { AskerModel, QuestionModel } from '.';
+import { UserData } from './userModel';
 
-const askerData = {
-    id: 1,
+const askerData: UserData = {
+    id: 'askerId',
     name: 'Asker Name',
     email: 'asker@host.com',
 };
