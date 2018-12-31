@@ -26,7 +26,7 @@ export class StoreCore {
         const i = this.findOne(item);
 
         if (i) {
-            throw new this.ERROR('Item already exists');
+            throw new this.ERROR('already exists');
         } else {
             this.items.push(item);
         }
@@ -36,7 +36,7 @@ export class StoreCore {
     update(item: ItemModel) {
         let i = this.findOne(item);
         if (!i) {
-            throw new this.ERROR('Item not found');
+            throw new this.ERROR('not found');
         } else {
             Object.assign(i, item);
             return i;
@@ -47,7 +47,7 @@ export class StoreCore {
     remove(item: ItemModel) {
         let i = this.findOne(item);
         if (!i) {
-            throw new this.ERROR('Item not found');
+            throw new this.ERROR('not found');
         } else {
             this.items = this.items.filter(i => !!item.id && i.id !== item.id);
         }

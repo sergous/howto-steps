@@ -1,2 +1,6 @@
-export class CommonError extends Error {}
-export class CommonModelError extends CommonError {}
+export class CommonError extends Error {
+    name = 'CommonError';
+}
+export class CommonModelError extends CommonError {
+    name = 'CommonModelError';
+}

@@ -39,7 +39,8 @@ describe('StoreCore', () => {
         });
 
         it('should not add same item', () => {
-            expect(() => storeCore.add(item)).toThrowError(storeCore.ERROR);
+            const add = () => storeCore.add(item);
+            expect(add).toThrowError(storeCore.ERROR);
         });
 
         it('should update item', () => {
@@ -52,9 +53,8 @@ describe('StoreCore', () => {
                 ...item,
                 id: storeCore.newId,
             };
-            expect(() => storeCore.update(notExistingItem)).toThrowError(
-                storeCore.ERROR,
-            );
+            const update = () => storeCore.update(notExistingItem);
+            expect(update).toThrowError(storeCore.ERROR);
         });
 
         it('should remove item', () => {
@@ -66,9 +66,8 @@ describe('StoreCore', () => {
                 ...item,
                 id: storeCore.newId,
             };
-            expect(() => storeCore.remove(notExistingItem)).toThrowError(
-                storeCore.ERROR,
-            );
+            const remove = () => storeCore.remove(notExistingItem);
+            expect(remove).toThrowError(storeCore.ERROR);
         });
     });
 });

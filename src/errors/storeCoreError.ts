@@ -1,1 +1,5 @@
-export class StoreCoreError extends Error {}
+import { CommonError } from '.';
+
+export class StoreCoreError extends CommonError {
+    name = 'StoreCoreError';
+}
