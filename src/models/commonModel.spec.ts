@@ -1,30 +1,49 @@
-import { SolutionModel } from '.';
-import { RootStore, SolutionStore } from '../stores';
+import { CommonModel } from '.';
 import { CommonModelError } from '../errors';
 
 describe('CommonModel', () => {
-    let solution: SolutionModel;
-    let solutionStore: SolutionStore;
-
-    beforeEach(() => {
-        const rootStore = new RootStore();
-        solutionStore = new SolutionStore(rootStore);
-    });
-
-    it('should create id', () => {
-        solution = new SolutionModel(solutionStore);
-        expect(solution.id).toBeDefined();
-    });
+    beforeEach(() => {});
+    let commonModel: CommonModel;
 
     describe('with solution', () => {
         beforeEach(() => {
-            solution = new SolutionModel(solutionStore);
+            commonModel = new CommonModel();
         });
 
-        it('should not update id', () => {
-            expect(() => (solution.id = solutionStore.newId)).toThrowError(
-                CommonModelError,
-            );
+        it('should not have id', () => {
+            expect(commonModel.id).not.toBeDefined();
+        });
+
+        it('should set id', () => {
+            commonModel.id = 'commonId';
+            expect(commonModel.id).toBeDefined();
+        });
+
+        it('should not have create datetime', () => {
+            expect(commonModel.createTime).not.toBeDefined();
+        });
+
+        it('should set create datetime', () => {
+            commonModel.createTime = Date.now();
+            expect(commonModel.createTime).toBeDefined();
+        });
+
+        it('should not have update datetime', () => {
+            expect(commonModel.updateTime).not.toBeDefined();
+        });
+
+        it('should set update datetime', () => {
+            commonModel.updateTime = Date.now();
+            expect(commonModel.updateTime).toBeDefined();
+        });
+
+        describe('with id', () => {
+            beforeEach(() => (commonModel.id = 'newId'));
+
+            it('should not update id', () => {
+                const setId = () => (commonModel.id = 'newId');
+                expect(setId).toThrowError(CommonModelError);
+            });
         });
     });
 });

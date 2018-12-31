@@ -6,4 +6,5 @@ export * from './stepModel';
 export * from './answerModel';
 export * from './adviserModel';
 export * from './solutionModel';
+export * from './datetime';
 export { CommonModel };
