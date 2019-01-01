@@ -1,5 +1,6 @@
 import { RootStore, AnswerStore } from '.';
 import { AnswerModel } from '../models';
+import { AnswerStoreError } from '../errors';
 
 describe('answer store', () => {
     let rootStore: RootStore;
@@ -16,9 +17,19 @@ describe('answer store', () => {
         expect(answerStore.rootStore).toBeInstanceOf(RootStore);
     });
 
-    it('should add new answer', () => {
-        const answer = new AnswerModel(answerStore);
-        answerStore.addAnswer(answer);
-        expect(answerStore.answers).toContain(answer);
+    it('should set error', () => {
+        expect(answerStore.ERROR).toBe(AnswerStoreError);
+    });
+
+    describe('with answer', () => {
+        let answer: AnswerModel;
+
+        beforeEach(() => {
+            answer = new AnswerModel(answerStore);
+        });
+
+        it('should have answer', () => {
+            expect(answerStore.answers).toContain(answer);
+        });
     });
 });
