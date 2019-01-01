@@ -19,13 +19,4 @@ export class SolutionStore extends StoreCore {
     get solutions() {
         return <SolutionModel[]>this.items;
     }
-
-    @action
-    createSolution(
-        solution: SolutionModel = new SolutionModel(this),
-    ): SolutionModel {
-        solution.id = this.newId;
-        this.add(solution);
-        return solution;
-    }
 }

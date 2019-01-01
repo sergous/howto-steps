@@ -15,7 +15,7 @@ export class StoreCore {
     }
 
     @action
-    createItem(item: ItemModel = new CommonModel()): ItemModel {
+    create(item: ItemModel = new CommonModel()): ItemModel {
         item.id = this.newId;
         this.add(item);
         return item;

@@ -27,7 +27,7 @@ describe('StoreCore', () => {
     });
     describe('with item', () => {
         beforeEach(() => {
-            item = storeCore.createItem();
+            item = storeCore.create();
         });
 
         it('should have item', () => {

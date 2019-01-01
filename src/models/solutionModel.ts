@@ -15,7 +15,7 @@ export class SolutionModel extends CommonModel {
 
     @action
     private bindToStore() {
-        Object.assign(this, this.store_.createSolution(this));
+        Object.assign(this, this.store_.create(this));
     }
 
     set question(question: QuestionModel | undefined) {

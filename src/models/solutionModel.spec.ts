@@ -4,13 +4,14 @@ import { RootStore, SolutionStore } from '../stores';
 describe('SolutionModel', () => {
     let solution: SolutionModel;
     let question: QuestionModel;
+    let rootStore: RootStore;
     let solutionStore: SolutionStore;
 
     beforeEach(() => {
         question = new QuestionModel('How to pull?');
 
-        const rootStore = new RootStore();
-        solutionStore = new SolutionStore(rootStore);
+        rootStore = new RootStore();
+        solutionStore = rootStore.solutionStore;
     });
 
     describe('with solution', () => {
@@ -20,6 +21,9 @@ describe('SolutionModel', () => {
 
         it('should hold ref to solution store', () => {
             expect(solution).toHaveProperty('store_');
+            const anySolution = solution as any;
+            expect(anySolution.store_).toBeDefined();
+            expect(anySolution.store_).toBeInstanceOf(SolutionStore);
         });
         it('should not have question', () => {
             expect(solution.question).toBeUndefined();
@@ -67,10 +71,10 @@ describe('SolutionModel', () => {
                 step2 = new StepModel('Push with handle');
                 step3 = new StepModel('Press harder');
 
-                answer = new AnswerModel();
+                answer = new AnswerModel(rootStore.answerStore);
                 answer.steps = [step1, step2];
 
-                answer2 = new AnswerModel();
+                answer2 = new AnswerModel(rootStore.answerStore);
                 answer2.steps = [step3];
 
                 solution.answers = [answer];
