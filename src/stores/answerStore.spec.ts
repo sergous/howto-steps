@@ -17,7 +17,7 @@ describe('answer store', () => {
     });
 
     it('should add new answer', () => {
-        const answer = new AnswerModel();
+        const answer = new AnswerModel(answerStore);
         answerStore.addAnswer(answer);
         expect(answerStore.answers).toContain(answer);
     });
