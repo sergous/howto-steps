@@ -17,8 +17,16 @@ export class CommonModel {
 
     @action
     bindToStore(store: StoreCore) {
+        if (this.store_) this.unbindFromStore(this.store_);
         this.store_ = store;
         Object.assign(this, this.store_.create(this));
+    }
+
+    @action
+    unbindFromStore(store: StoreCore) {
+        store.remove(this);
+        this.id_ = undefined;
+        this.store_ = undefined;
     }
 
     set id(id: string | undefined) {

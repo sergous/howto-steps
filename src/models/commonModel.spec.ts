@@ -1,5 +1,6 @@
 import { CommonModel } from '.';
 import { CommonModelError } from '../errors';
+import { StoreCore } from '../stores';
 
 describe('CommonModel', () => {
     beforeEach(() => {});
@@ -43,6 +44,61 @@ describe('CommonModel', () => {
             it('should not update id', () => {
                 const setId = () => (commonModel.id = 'newId');
                 expect(setId).toThrowError(CommonModelError);
+            });
+        });
+    });
+
+    describe('bind', () => {
+        let store1: StoreCore;
+
+        beforeEach(() => {
+            store1 = new StoreCore();
+        });
+
+        describe('constructor', () => {
+            beforeEach(() => {
+                commonModel = new CommonModel(store1);
+            });
+            it('should create item in store1', () => {
+                expect(store1.findOne(commonModel)).toBe(commonModel);
+            });
+        });
+
+        describe('bindToStore', () => {
+            beforeEach(() => {
+                commonModel.bindToStore(store1);
+            });
+            it('should create item in store1', () => {
+                expect(store1.findOne(commonModel)).toBe(commonModel);
+            });
+        });
+
+        describe('unbindFromStore', () => {
+            beforeEach(() => {
+                commonModel = new CommonModel(store1);
+            });
+            it('should remove item from store1', () => {
+                commonModel.unbindFromStore(store1);
+                expect(store1.findOne(commonModel)).toBeUndefined();
+            });
+        });
+
+        describe('move', () => {
+            let store2: StoreCore;
+
+            beforeEach(() => {
+                store2 = new StoreCore();
+                commonModel = new CommonModel(store1);
+                const anyCommonModel = commonModel as any;
+                anyCommonModel.bindToStore(store2);
+            });
+
+            it('should create item in store2', () => {
+                expect(store2.findOne(commonModel)).toBe(commonModel);
+            });
+
+            it('should remove item from store1', () => {
+                expect(store1.findOne(commonModel)).toBeUndefined();
             });
         });
     });
