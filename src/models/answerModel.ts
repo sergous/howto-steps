@@ -1,21 +1,11 @@
 import { StepModel, CommonModel } from '.';
 import { AnswerStore } from '../stores';
 import { action, observable } from 'mobx';
+import { AnswerModelError } from '../errors';
 
 export class AnswerModel extends CommonModel {
     @observable private steps_: StepModel[] = [];
-    private store_: AnswerStore;
-
-    constructor(stepStore: AnswerStore) {
-        super();
-        this.store_ = stepStore;
-        this.bindToStore();
-    }
-
-    @action
-    private bindToStore() {
-        Object.assign(this, this.store_.create(this));
-    }
+    ERROR = AnswerModelError;
 
     set steps(steps: StepModel[]) {
         this.steps_ = steps;

@@ -1,22 +1,13 @@
 import { QuestionModel, AnswerModel, CommonModel } from '.';
 import { SolutionStore } from '../stores';
 import { observable, action } from 'mobx';
+import { SolutionModelError } from '../errors';
 
 export class SolutionModel extends CommonModel {
     @observable private question_?: QuestionModel;
     @observable private answers_: AnswerModel[] = [];
-    private store_: SolutionStore;
 
-    constructor(solutionStore: SolutionStore) {
-        super();
-        this.store_ = solutionStore;
-        this.bindToStore();
-    }
-
-    @action
-    private bindToStore() {
-        Object.assign(this, this.store_.create(this));
-    }
+    ERROR = SolutionModelError;
 
     set question(question: QuestionModel | undefined) {
         this.question_ = question;

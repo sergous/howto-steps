@@ -1,15 +1,29 @@
-import { observable } from 'mobx';
+import { observable, action } from 'mobx';
 import { CommonModelError } from '../errors';
 import { Datetime } from '.';
+import { StoreCore } from '../stores';
 
 export class CommonModel {
     @observable protected id_?: string;
-    createTime_?: Datetime;
-    updateTime_?: Datetime;
+    @observable private createTime_?: Datetime;
+    @observable private updateTime_?: Datetime;
+
+    ERROR = CommonModelError;
+    private store_?: StoreCore;
+
+    constructor(store?: StoreCore) {
+        if (store) this.bindToStore(store);
+    }
+
+    @action
+    bindToStore(store: StoreCore) {
+        this.store_ = store;
+        Object.assign(this, this.store_.create(this));
+    }
 
     set id(id: string | undefined) {
         if (this.id_) {
-            throw new CommonModelError('Immutable id is already set');
+            throw new this.ERROR('Immutable id is already set');
         }
         this.id_ = id;
     }
