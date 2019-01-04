@@ -6,3 +6,4 @@ export { StoreCoreError };
 
 export * from './solutionError';
 export * from './answerError';
+export * from './userError';

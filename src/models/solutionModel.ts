@@ -3,6 +3,7 @@ import { SolutionStore } from '../stores';
 import { observable, action } from 'mobx';
 import { SolutionModelError } from '../errors';
 
+// TODO(sergous): Make solution extends question for conversion
 export class SolutionModel extends CommonModel {
     @observable private question_?: QuestionModel;
     @observable private answers_: AnswerModel[] = [];
