@@ -7,4 +7,5 @@ export * from './answerModel';
 export * from './adviserModel';
 export * from './solutionModel';
 export * from './datetime';
+export * from './id';
 export { CommonModel };

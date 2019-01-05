@@ -1,5 +1,5 @@
 import uniqid from 'uniqid';
-import { CommonModel, SolutionModel } from '../models';
+import { CommonModel, Id } from '../models';
 import { observable, action } from 'mobx';
 import { StoreCoreError } from '../errors';
 
@@ -10,7 +10,7 @@ export class StoreCore {
     ERROR = StoreCoreError;
     @observable items: ItemModel[] = [];
 
-    get newId(): string {
+    get newId(): Id {
         return uniqid();
     }
 

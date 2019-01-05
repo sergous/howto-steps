@@ -1,4 +1,4 @@
-import { UserData, CommonModel } from '.';
+import { UserData, CommonModel, Id } from '.';
 export enum Role {
     Guest,
     Asker,
@@ -8,7 +8,7 @@ export enum Role {
 }
 
 export interface UserData {
-    id: string;
+    id?: Id;
     name: string;
     email: string;
     role?: Role;
