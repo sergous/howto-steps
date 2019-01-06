@@ -20,6 +20,14 @@ function runProduction() {
     renderApp(rootStore);
 }
 
+interface ReactHotReload {
+    accept: (paths: String[], action: () => void) => void;
+}
+
+interface NodeModuleWithReactHotReload extends NodeModule {
+    hot: ReactHotReload;
+}
+
 function runDevelopment() {
     const rootStore = new RootStore();
     const persistRootStore = persist(RootStore)(rootStore);
@@ -34,12 +42,15 @@ function runDevelopment() {
 
     renderApp(persistRootStore);
 
-    if (module.hot) {
-        module.hot.accept(['./App', './stores'], () => {
-            rehydrate().then(() => console.log('rootStore rehydrated'));
+    if ((module as NodeModuleWithReactHotReload).hot) {
+        (module as NodeModuleWithReactHotReload).hot.accept(
+            ['./App', './stores'],
+            () => {
+                rehydrate().then(() => console.log('rootStore rehydrated'));
 
-            renderApp(persistRootStore);
-        });
+                renderApp(persistRootStore);
+            },
+        );
     }
 }
 
