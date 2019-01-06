@@ -1,10 +1,12 @@
-import { AnswerModel, CommonModel } from '.';
+import { CommonModel } from '.';
+import { QuestionStore } from '../stores';
+import { observable } from 'mobx';
 
 export class QuestionModel extends CommonModel {
-    private query_: string;
+    @observable private query_: string;
 
-    constructor(query: string = '') {
-        super();
+    constructor(query: string = '', store?: QuestionStore) {
+        super(store);
         this.query_ = query;
     }
 
