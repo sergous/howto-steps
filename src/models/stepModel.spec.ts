@@ -1,4 +1,5 @@
 import { StepModel } from '.';
+import { SolutionModel } from './solutionModel';
 
 describe('stepModel', () => {
     let step: StepModel;
@@ -17,5 +18,20 @@ describe('stepModel', () => {
 
     it('should have description', () => {
         expect(step.description).toBe(description);
+    });
+
+    describe('solutions', () => {
+        let solution: SolutionModel;
+        beforeEach(() => {
+            solution = new SolutionModel();
+        });
+        it('should add solution', () => {
+            step.addSolution(solution);
+            expect(step.solutions).toContain(solution);
+        });
+        it('should remove solution', () => {
+            step.removeSolution(solution);
+            expect(step.solutions).not.toContain(solution);
+        });
     });
 });
