@@ -13,3 +13,7 @@ export class AskerStoreError extends UserStoreError {
 export class AskerModelError extends UserModelError {
     name = 'AskerModelError';
 }
+
+export class RoleUserModelError extends UserModelError {
+    name = 'RoleUserModelError';
+}

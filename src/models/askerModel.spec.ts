@@ -1,17 +1,17 @@
 import { AskerModel, QuestionModel, UserData, SolutionModel } from '.';
-import { AskerModelError } from '../errors';
-
-const askerData: UserData = {
-    id: 'askerId',
-    name: 'Asker Name',
-    email: 'asker@host.com',
-};
+import { AskerModelError, RoleUserModelError } from '../errors';
 
 describe('askerModel', () => {
     let asker: AskerModel;
     let question: QuestionModel;
     let question2: QuestionModel;
+    let askerData: UserData;
+
     beforeEach(() => {
+        askerData = {
+            name: 'Asker Name',
+            email: 'asker@host.com',
+        };
         asker = new AskerModel(askerData);
         question = new QuestionModel('How to push?');
         question2 = new QuestionModel('How to pull?');
@@ -22,6 +22,29 @@ describe('askerModel', () => {
         expect(asker.toJSON()).toEqual({
             ...askerData,
             role: AskerModel.ROLE.Asker,
+        });
+    });
+
+    it('should have asker role', () => {
+        expect(asker.role).toBe(AskerModel.ROLE.Asker);
+    });
+
+    it('should not change role', () => {
+        const updateRole = () => (asker.role = AskerModel.ROLE.Adviser);
+        expect(updateRole).toThrowError(RoleUserModelError);
+    });
+
+    describe('init with role', () => {
+        it('should accept valid role', () => {
+            askerData.role = AskerModel.ROLE.Asker;
+            asker = new AskerModel(askerData);
+            expect(asker.role).toBe(AskerModel.ROLE.Asker);
+        });
+
+        it('should change invalid role', () => {
+            askerData.role = AskerModel.ROLE.Adviser;
+            asker = new AskerModel(askerData);
+            expect(asker.role).toBe(AskerModel.ROLE.Asker);
         });
     });
 

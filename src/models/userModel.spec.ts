@@ -16,7 +16,6 @@ describe('userModel', () => {
     it('should create new user', () => {
         expect(user.toJSON()).toEqual({
             ...userData,
-            role: UserModel.ROLE.Guest,
         });
     });
 

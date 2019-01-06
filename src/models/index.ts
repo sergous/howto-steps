@@ -1,5 +1,7 @@
 import { CommonModel } from './commonModel';
 export * from './userModel';
+export * from './userData';
+export * from './roleUserModel';
 export * from './askerModel';
 export * from './questionModel';
 export * from './stepModel';

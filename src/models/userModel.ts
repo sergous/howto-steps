@@ -1,4 +1,4 @@
-import { UserData, CommonModel, Id } from '.';
+import { UserData, CommonModel } from '.';
 import { UserStore } from '../stores';
 import { observable } from 'mobx';
 export enum Role {
@@ -9,30 +9,24 @@ export enum Role {
     Expert,
 }
 
-export interface UserData {
-    id?: Id;
-    name: string;
-    email: string;
-    role?: Role;
-}
+export type UserRole = Role | undefined;
 
 export class UserModel extends CommonModel {
     static ROLE = Role;
     @observable name: string = '';
     @observable email: string = '';
-    @observable protected role_: Role;
+    @observable protected role_?: UserRole;
 
     constructor(userData: UserData, store?: UserStore) {
         super(store);
         Object.assign(this, userData);
-        this.role_ = userData.role || Role.Guest;
     }
 
-    set role(role: Role) {
+    set role(role: UserRole) {
         this.role_ = role;
     }
 
-    get role(): Role {
+    get role(): UserRole {
         return this.role_;
     }
 

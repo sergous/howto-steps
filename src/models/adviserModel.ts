@@ -1,15 +1,12 @@
 import { QuestionModel } from '.';
-import { UserModel } from '.';
-import { UserData } from '.';
+import { RoleUserModel } from '.';
+import { observable, action } from 'mobx';
 
-export class AdviserModel extends UserModel {
-    private questions_: QuestionModel[] = [];
+export class AdviserModel extends RoleUserModel {
+    @observable private questions_: QuestionModel[] = [];
+    role = AdviserModel.ROLE.Adviser;
 
-    constructor(userData: UserData) {
-        super(userData);
-        this.role = AdviserModel.ROLE.Adviser;
-    }
-
+    @action
     answer(question: QuestionModel) {
         this.questions_.push(question);
     }

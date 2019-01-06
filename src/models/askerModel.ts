@@ -1,11 +1,11 @@
-import { UserModel, UserData, QuestionModel } from '.';
+import { RoleUserModel, QuestionModel } from '.';
 import { observable, action } from 'mobx';
 import { AskerModelError } from '../errors';
 import { SolutionModel } from './solutionModel';
 
-export class AskerModel extends UserModel {
+export class AskerModel extends RoleUserModel {
     @observable private questions_: QuestionModel[] = [];
-    role = UserModel.ROLE.Asker;
+    role = AskerModel.ROLE.Asker;
 
     ERROR = AskerModelError;
 
