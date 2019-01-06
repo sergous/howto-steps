@@ -2,23 +2,22 @@ import { RootStore, StepStore } from '.';
 import { StepModel } from '../models';
 
 describe('step store', () => {
-    let rootStore: RootStore;
-    let stepStore: StepStore;
+    let store: StepStore;
 
     beforeEach(() => {
-        rootStore = new RootStore();
-        stepStore = new StepStore(rootStore);
+        const rootStore = new RootStore();
+        store = rootStore.stepStore;
     });
 
     it('should hold ref to root store', () => {
-        expect(stepStore).toHaveProperty('rootStore');
-        expect(stepStore.rootStore).toBeDefined();
-        expect(stepStore.rootStore).toBeInstanceOf(RootStore);
+        expect(store).toHaveProperty('rootStore');
+        expect(store.rootStore).toBeDefined();
+        expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
     it('should add new step', () => {
         const step = new StepModel('New step');
-        stepStore.addStep(step);
-        expect(stepStore.steps).toContain(step);
+        store.addStep(step);
+        expect(store.steps).toContain(step);
     });
 });

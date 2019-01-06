@@ -1,44 +1,43 @@
 import { RootStore, UiStore } from '.';
 
 describe('ui store', () => {
-    let rootStore: RootStore;
-    let uiStore: UiStore;
+    let store: UiStore;
 
     beforeEach(() => {
-        rootStore = new RootStore();
-        uiStore = new UiStore(rootStore);
+        const rootStore = new RootStore();
+        store = rootStore.uiStore;
     });
 
     it('should hold ref to root store', () => {
-        expect(uiStore).toHaveProperty('rootStore');
-        expect(uiStore.rootStore).toBeDefined();
-        expect(uiStore.rootStore).toBeInstanceOf(RootStore);
+        expect(store).toHaveProperty('rootStore');
+        expect(store.rootStore).toBeDefined();
+        expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
     describe('requests', () => {
         beforeEach(() => {});
 
         it('should start request', () => {
-            uiStore.startRequest();
-            expect(uiStore.pendingRequestsCount).toBe(1);
-            expect(uiStore.hasPendingRequests).toBeTruthy();
+            store.startRequest();
+            expect(store.pendingRequestsCount).toBe(1);
+            expect(store.hasPendingRequests).toBeTruthy();
         });
 
         it('should finish request', () => {
-            uiStore.startRequest();
-            uiStore.finishRequest();
-            expect(uiStore.pendingRequestsCount).toBe(0);
-            expect(uiStore.hasPendingRequests).toBeFalsy();
+            store.startRequest();
+            store.finishRequest();
+            expect(store.pendingRequestsCount).toBe(0);
+            expect(store.hasPendingRequests).toBeFalsy();
         });
 
         it('should clear requests', () => {
-            uiStore.startRequest(2);
-            expect(uiStore.pendingRequestsCount).toBe(2);
+            store.startRequest(2);
+            expect(store.pendingRequestsCount).toBe(2);
 
-            uiStore.clearPendingRequests();
+            store.clearPendingRequests();
 
-            expect(uiStore.pendingRequestsCount).toBe(0);
-            expect(uiStore.hasPendingRequests).toBeFalsy();
+            expect(store.pendingRequestsCount).toBe(0);
+            expect(store.hasPendingRequests).toBeFalsy();
         });
     });
 });

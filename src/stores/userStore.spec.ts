@@ -1,17 +1,16 @@
 import { RootStore, UserStore } from '.';
 
 describe('question store', () => {
-    let rootStore: RootStore;
-    let userStore: UserStore;
+    let store: UserStore;
 
     beforeEach(() => {
-        rootStore = new RootStore();
-        userStore = new UserStore(rootStore);
+        const rootStore = new RootStore();
+        store = rootStore.userStore;
     });
 
     it('should hold ref to root store', () => {
-        expect(userStore).toHaveProperty('rootStore');
-        expect(userStore.rootStore).toBeDefined();
-        expect(userStore.rootStore).toBeInstanceOf(RootStore);
+        expect(store).toHaveProperty('rootStore');
+        expect(store.rootStore).toBeDefined();
+        expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 });

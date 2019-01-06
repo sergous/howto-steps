@@ -3,33 +3,32 @@ import { AnswerModel } from '../models';
 import { AnswerStoreError } from '../errors';
 
 describe('answer store', () => {
-    let rootStore: RootStore;
-    let answerStore: AnswerStore;
+    let store: AnswerStore;
 
     beforeEach(() => {
-        rootStore = new RootStore();
-        answerStore = new AnswerStore(rootStore);
+        const rootStore = new RootStore();
+        store = rootStore.answerStore;
     });
 
     it('should hold ref to root store', () => {
-        expect(answerStore).toHaveProperty('rootStore');
-        expect(answerStore.rootStore).toBeDefined();
-        expect(answerStore.rootStore).toBeInstanceOf(RootStore);
+        expect(store).toHaveProperty('rootStore');
+        expect(store.rootStore).toBeDefined();
+        expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
     it('should set error', () => {
-        expect(answerStore.ERROR).toBe(AnswerStoreError);
+        expect(store.ERROR).toBe(AnswerStoreError);
     });
 
     describe('with answer', () => {
         let answer: AnswerModel;
 
         beforeEach(() => {
-            answer = new AnswerModel(answerStore);
+            answer = new AnswerModel(store);
         });
 
         it('should have answer', () => {
-            expect(answerStore.answers).toContain(answer);
+            expect(store.answers).toContain(answer);
         });
     });
 });

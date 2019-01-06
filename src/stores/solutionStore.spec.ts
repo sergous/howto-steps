@@ -3,73 +3,70 @@ import { SolutionModel, QuestionModel } from '../models';
 import { SolutionStoreError } from '../errors';
 
 describe('solution store', () => {
-    let rootStore: RootStore;
-    let solutionStore: SolutionStore;
+    let store: SolutionStore;
     let solution: SolutionModel;
 
     beforeEach(() => {
-        rootStore = new RootStore();
-        solutionStore = new SolutionStore(rootStore);
+        const rootStore = new RootStore();
+        store = rootStore.solutionStore;
     });
 
     it('should set ERROR', () => {
-        expect(solutionStore.ERROR).toBe(SolutionStoreError);
+        expect(store.ERROR).toBe(SolutionStoreError);
     });
 
     it('should hold ref to root store', () => {
-        expect(solutionStore).toHaveProperty('rootStore');
-        expect(solutionStore.rootStore).toBeDefined();
-        expect(solutionStore.rootStore).toBeInstanceOf(RootStore);
+        expect(store).toHaveProperty('rootStore');
+        expect(store.rootStore).toBeDefined();
+        expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
     describe('with solution', () => {
         beforeEach(() => {
-            solution = new SolutionModel(solutionStore);
+            solution = new SolutionModel(store);
         });
 
         it('should have solution', () => {
-            expect(solutionStore.solutions).toContain(solution);
+            expect(store.solutions).toContain(solution);
         });
 
         it('should find solution', () => {
-            expect(solutionStore.findOne(solution)).toBe(solution);
+            expect(store.findOne(solution)).toBe(solution);
         });
 
         it('should not add same solution', () => {
-            expect(() => solutionStore.add(solution)).toThrowError(
-                solutionStore.ERROR,
-            );
+            expect(() => store.add(solution)).toThrowError(store.ERROR);
         });
 
         it('should update solution', () => {
             const question = new QuestionModel();
             solution.question = question;
-            const s = solutionStore.update(solution);
+            const s = store.update(solution);
             expect(s).toBeDefined();
             expect(s!.question).toEqual(question);
         });
         it('should not update solution', () => {
             const notExistingSolution = <SolutionModel>{
                 ...solution,
-                id: solutionStore.newId,
+                id: store.newId,
             };
-            expect(() =>
-                solutionStore.update(notExistingSolution),
-            ).toThrowError(solutionStore.ERROR);
+            expect(() => store.update(notExistingSolution)).toThrowError(
+                store.ERROR,
+            );
         });
 
         it('should remove solution', () => {
-            solutionStore.remove(solution);
-            expect(solutionStore.solutions).not.toContain(solution);
+            store.remove(solution);
+            expect(store.solutions).not.toContain(solution);
         });
         it('should not remove solution', () => {
             const notExistingSolution = <SolutionModel>{
                 ...solution,
-                id: solutionStore.newId,
+                id: store.newId,
             };
-            expect(() =>
-                solutionStore.remove(notExistingSolution),
-            ).toThrowError(solutionStore.ERROR);
+            expect(() => store.remove(notExistingSolution)).toThrowError(
+                store.ERROR,
+            );
         });
     });
 });
