@@ -1,4 +1,5 @@
 import { QuestionModel } from '.';
+import { QuestionStore, RootStore } from '../stores';
 
 describe('questionModel', () => {
     let question: QuestionModel;
@@ -17,5 +18,26 @@ describe('questionModel', () => {
         const updated = 'How to drow a pen';
         question.query = updated;
         expect(question.query).toBe(updated);
+    });
+
+    describe('with store', () => {
+        let store: QuestionStore;
+
+        beforeEach(() => {
+            const rootStore = new RootStore();
+            store = rootStore.questionStore;
+            question = new QuestionModel(query, store);
+        });
+
+        it('should hold ref to store', () => {
+            const anyQuestion = question as any;
+            expect(anyQuestion).toHaveProperty('store_');
+            expect(anyQuestion.store_).toBeDefined();
+            expect(anyQuestion.store_).toBeInstanceOf(QuestionStore);
+        });
+
+        it('should find question in store', () => {
+            expect(store.findOne(question)).toBe(question);
+        });
     });
 });

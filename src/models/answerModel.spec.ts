@@ -6,21 +6,11 @@ describe('answerModel', () => {
     let steps: StepModel[];
     let step: StepModel;
     let answer: AnswerModel;
-    let answerStore: AnswerStore;
 
     beforeEach(() => {
-        const rootStore = new RootStore();
-        answerStore = rootStore.answerStore;
-        answer = new AnswerModel(answerStore);
         step = new StepModel('Step name', 'Step description');
         steps = [step];
-    });
-
-    it('should hold ref to answer store', () => {
-        expect(answer).toHaveProperty('store_');
-        const anyAnswer = answer as any;
-        expect(anyAnswer.store_).toBeDefined();
-        expect(anyAnswer.store_).toBeInstanceOf(AnswerStore);
+        answer = new AnswerModel();
     });
 
     it('should set steps', () => {
@@ -41,6 +31,27 @@ describe('answerModel', () => {
         it('should remove step', () => {
             answer.removeStep(step);
             expect(answer.steps).not.toContain(step);
+        });
+    });
+
+    describe('with store', () => {
+        let store: AnswerStore;
+
+        beforeEach(() => {
+            const rootStore = new RootStore();
+            store = rootStore.answerStore;
+            answer = new AnswerModel(store);
+        });
+
+        it('should hold ref to answer store', () => {
+            const anyAnswer = answer as any;
+            expect(anyAnswer).toHaveProperty('store_');
+            expect(anyAnswer.store_).toBeDefined();
+            expect(anyAnswer.store_).toBeInstanceOf(AnswerStore);
+        });
+
+        it('should find answer in store', () => {
+            expect(store.findOne(answer)).toBe(answer);
         });
     });
 });
