@@ -22,18 +22,21 @@ export class StoreCore {
     }
 
     @action
-    add(item: ItemModel) {
+    add(item: ItemModel): ItemModel {
+        if (!item.id) throw new this.ERROR('should have id');
+
         const i = this.findOne(item);
 
         if (i) {
             throw new this.ERROR('already exists');
         } else {
             this.items.push(item);
+            return item;
         }
     }
 
     @action
-    update(item: ItemModel) {
+    update(item: ItemModel): ItemModel {
         let i = this.findOne(item);
         if (!i) {
             throw new this.ERROR('not found');
@@ -44,16 +47,23 @@ export class StoreCore {
     }
 
     @action
-    remove(item: ItemModel) {
-        let i = this.findOne(item);
-        if (!i) {
+    remove(item: ItemModel): number {
+        let i = this.findIndex(item);
+        if (i === undefined) {
             throw new this.ERROR('not found');
         } else {
             this.items = this.items.filter(i => !!item.id && i.id !== item.id);
+            return i;
         }
     }
 
     findOne(item: ItemModel): ItemModel | undefined {
         return this.items.find(i => !!item.id && i.id === item.id);
+    }
+
+    findIndex(item: ItemModel): number | undefined {
+        const index = this.items.findIndex(i => !!item.id && i.id === item.id);
+        if (index === -1) return;
+        return index;
     }
 }
