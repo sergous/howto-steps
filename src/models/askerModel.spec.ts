@@ -1,5 +1,6 @@
 import { AskerModel, QuestionModel, UserData, SolutionModel } from '.';
-import { AskerModelError, RoleUserModelError } from '../errors';
+import { AskerModelError, RoleUserModelError, StoreCoreError } from '../errors';
+import { StoreCore } from '../stores';
 
 describe('askerModel', () => {
     let asker: AskerModel;
@@ -89,6 +90,58 @@ describe('askerModel', () => {
                 solution.question = question;
                 asker.resolve(solution);
                 expect(asker.questions).not.toContain(question);
+                expect(asker.solutions).toContain(solution);
+            });
+        });
+
+        describe('remove question', () => {
+            it('should remove question', () => {
+                asker.removeQuestion(question);
+                expect(asker.questions).not.toContain(question);
+            });
+            it('should not remove question', () => {
+                const unknownQuestion = new QuestionModel();
+                const remove = () => asker.removeQuestion(unknownQuestion);
+                expect(remove).toThrowError(AskerModelError);
+                expect(asker.questions).toContain(question);
+            });
+        });
+
+        describe('with solution', () => {
+            let solution: SolutionModel;
+            let solution2: SolutionModel;
+
+            beforeEach(() => {
+                solution = new SolutionModel();
+                solution.id = StoreCore.uniqId;
+                solution.question = question;
+                asker.resolve(solution);
+
+                solution2 = new SolutionModel();
+            });
+
+            it('should have solution', () => {
+                expect(asker.solutions).toContain(solution);
+            });
+
+            describe('remove solution', () => {
+                it('should remove soluton', () => {
+                    asker.removeSolution(solution);
+                    expect(asker.solutions).not.toContain(solution);
+                });
+                it('should not remove solution', () => {
+                    const remove = () => asker.removeSolution(solution2);
+                    expect(remove).toThrowError(AskerModelError);
+                });
+            });
+
+            describe('findSolution', () => {
+                it('should find solution', () => {
+                    expect(asker.findSolution(solution)).toBeDefined();
+                });
+                it('should not find solution', () => {
+                    expect(asker.findSolution(solution2)).toBeUndefined();
+                });
             });
         });
     });
