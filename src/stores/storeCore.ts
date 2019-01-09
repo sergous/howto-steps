@@ -52,18 +52,12 @@ export class StoreCore {
         if (i === undefined) {
             throw new this.ERROR('not found');
         } else {
-            this.items = this.items.filter(i => !!item.id && i.id !== item.id);
+            this.items = CommonModel.remove(this.items)(item);
             return i;
         }
     }
 
-    findOne(item: ItemModel): ItemModel | undefined {
-        return this.items.find(i => !!item.id && i.id === item.id);
-    }
+    findOne = (item: ItemModel) => CommonModel.findOne(this.items)(item);
 
-    findIndex(item: ItemModel): number | undefined {
-        const index = this.items.findIndex(i => !!item.id && i.id === item.id);
-        if (index === -1) return;
-        return index;
-    }
+    findIndex = (item: ItemModel) => CommonModel.findIndex(this.items)(item);
 }

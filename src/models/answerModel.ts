@@ -22,6 +22,6 @@ export class AnswerModel extends CommonModel {
 
     @action
     removeStep(step: StepModel) {
-        this.steps_ = this.steps_.filter(a => !!step.id && a.id !== step.id);
+        this.steps_ = StepModel.remove(this.steps_)(step);
     }
 }

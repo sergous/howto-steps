@@ -41,30 +41,24 @@ export class AskerModel extends RoleUserModel {
         this.addSolution_(solution);
     }
 
-    findQuestion(question: QuestionModel) {
-        return this.questions_.find(q => !!question.id && q.id === question.id);
-    }
+    findQuestion = (question: QuestionModel) =>
+        QuestionModel.findOne(this.questions_)(question);
 
-    findSolution(solution: SolutionModel) {
-        return this.solutions_.find(s => !!solution.id && s.id === solution.id);
-    }
+    findSolution = (solution: SolutionModel) =>
+        SolutionModel.findOne(this.solutions_)(solution);
 
     @action
     removeSolution(solution: SolutionModel) {
         if (!solution || !this.findSolution(solution))
             throw new this.ERROR('solution not found');
-        this.solutions_ = this.solutions_.filter(
-            s => !!solution.id && s.id !== solution.id,
-        );
+        this.solutions_ = SolutionModel.remove(this.solutions_)(solution);
     }
 
     @action
     removeQuestion(question: QuestionModel) {
         if (!question || !this.findQuestion(question))
             throw new this.ERROR('question not found');
-        this.questions_ = this.questions_.filter(
-            q => !!question.id && q.id !== question.id,
-        );
+        this.questions_ = QuestionModel.remove(this.questions_)(question);
     }
 
     @action

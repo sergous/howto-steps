@@ -44,8 +44,6 @@ export class StepModel extends CommonModel {
 
     @action
     removeSolution(solution: SolutionModel) {
-        this.solutions_ = this.solutions_.filter(
-            s => !!solution.id && s.id !== solution.id,
-        );
+        this.solutions_ = SolutionModel.remove(this.solutions_)(solution);
     }
 }

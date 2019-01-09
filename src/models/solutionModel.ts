@@ -32,8 +32,6 @@ export class SolutionModel extends CommonModel {
 
     @action
     removeAnswer(answer: AnswerModel) {
-        this.answers_ = this.answers_.filter(
-            a => !!answer.id && a.id !== answer.id,
-        );
+        this.answers_ = AnswerModel.remove(this.answers_)(answer);
     }
 }
