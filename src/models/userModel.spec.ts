@@ -14,7 +14,7 @@ describe('userModel', () => {
     });
 
     it('should create new user', () => {
-        expect(user.toJSON()).toEqual({
+        expect(user.toObject()).toEqual({
             ...userData,
         });
     });

@@ -67,4 +67,17 @@ export class CommonModel {
     get updateTime() {
         return this.updateTime_;
     }
+
+    toObject() {
+        let result: any = {};
+        for (let prop in this) {
+            const item = this[prop];
+            if (prop.includes('_')) continue;
+            if (item === undefined) continue;
+            if (item instanceof Function) continue;
+
+            result[prop] = this[prop];
+        }
+        return result;
+    }
 }

@@ -20,9 +20,8 @@ describe('askerModel', () => {
     });
 
     it('should create new asker', () => {
-        expect(asker.toJSON()).toEqual({
+        expect(asker.toObject()).toEqual({
             ...askerData,
-            role: AskerModel.ROLE.Asker,
         });
     });
 

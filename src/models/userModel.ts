@@ -29,9 +29,4 @@ export class UserModel extends CommonModel {
     get role(): UserRole {
         return this.role_;
     }
-
-    toJSON() {
-        const { id, name, email, role } = this;
-        return { id, name, email, role };
-    }
 }
