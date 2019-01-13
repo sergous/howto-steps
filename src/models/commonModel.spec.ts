@@ -1,6 +1,6 @@
 import { CommonModel } from '.';
 import { CommonModelError } from '../errors';
-import { StoreCore } from '../stores';
+import { StoreCore, RootStore } from '../stores';
 
 describe('CommonModel', () => {
     beforeEach(() => {});
@@ -50,9 +50,11 @@ describe('CommonModel', () => {
 
     describe('bind', () => {
         let store1: StoreCore;
+        let rootStore: RootStore;
 
         beforeEach(() => {
-            store1 = new StoreCore();
+            rootStore = new RootStore();
+            store1 = new StoreCore(rootStore);
         });
 
         describe('constructor', () => {
@@ -87,7 +89,7 @@ describe('CommonModel', () => {
             let store2: StoreCore;
 
             beforeEach(() => {
-                store2 = new StoreCore();
+                store2 = new StoreCore(rootStore);
                 commonModel = new CommonModel(store1);
                 const anyCommonModel = commonModel as any;
                 anyCommonModel.bindToStore(store2);

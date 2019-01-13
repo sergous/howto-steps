@@ -1,10 +1,12 @@
-import { StoreCore, RootStore } from '.';
+import { StoreCore } from '.';
+import { TagModel } from '../models';
 
 export class TagStore extends StoreCore {
-    rootStore: RootStore;
+    set tags(tags: TagModel[]) {
+        this.items = tags;
+    }
 
-    constructor(rootStore: RootStore) {
-        super();
-        this.rootStore = rootStore;
+    get tags(): TagModel[] {
+        return <TagModel[]>this.items;
     }
 }

@@ -17,7 +17,8 @@ describe('question store', () => {
 
     it('should add new question', () => {
         const question = new QuestionModel('How is the whether today?');
-        store.addQuestion(question);
+        question.id = store.newId;
+        store.add(question);
         expect(store.questions).toContain(question);
     });
 });

@@ -1,4 +1,4 @@
-import { StoreCore } from '.';
+import { StoreCore, RootStore } from '.';
 import { CommonModel } from '../models';
 import { StoreCoreError } from '../errors';
 
@@ -6,7 +6,8 @@ describe('StoreCore', () => {
     let storeCore: StoreCore;
     let item: CommonModel;
     beforeEach(() => {
-        storeCore = new StoreCore();
+        const rootStore = new RootStore();
+        storeCore = new StoreCore(rootStore);
     });
 
     it('should set ERROR', () => {

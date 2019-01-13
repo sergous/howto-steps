@@ -17,7 +17,8 @@ describe('step store', () => {
 
     it('should add new step', () => {
         const step = new StepModel('New step');
-        store.addStep(step);
+        step.id = store.newId;
+        store.add(step);
         expect(store.steps).toContain(step);
     });
 });

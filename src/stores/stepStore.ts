@@ -1,18 +1,12 @@
-import { RootStore, StoreCore } from '.';
-import { observable, action } from 'mobx';
+import { StoreCore } from '.';
 import { StepModel } from '../models';
 
 export class StepStore extends StoreCore {
-    rootStore: RootStore;
-    @observable steps: StepModel[] = [];
-
-    constructor(rootStore: RootStore) {
-        super();
-        this.rootStore = rootStore;
+    set steps(steps: StepModel[]) {
+        this.items = steps;
     }
 
-    @action
-    addStep(step: StepModel) {
-        this.steps.push(step);
+    get steps(): StepModel[] {
+        return this.items;
     }
 }

@@ -2,6 +2,7 @@ import uniqid from 'uniqid';
 import { CommonModel, Id, ItemModel } from '../models';
 import { observable, action } from 'mobx';
 import { StoreCoreError } from '../errors';
+import { RootStore } from '.';
 
 export class StoreCore {
     static get uniqId() {
@@ -9,6 +10,11 @@ export class StoreCore {
     }
     ERROR = StoreCoreError;
     @observable items: ItemModel[] = [];
+    rootStore: RootStore;
+
+    constructor(rootStore: RootStore) {
+        this.rootStore = rootStore;
+    }
 
     get newId(): Id {
         return StoreCore.uniqId;

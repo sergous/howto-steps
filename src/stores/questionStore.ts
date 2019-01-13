@@ -1,18 +1,12 @@
-import { RootStore, StoreCore } from '.';
-import { observable, action } from 'mobx';
+import { StoreCore } from '.';
 import { QuestionModel } from '../models';
 
 export class QuestionStore extends StoreCore {
-    rootStore: RootStore;
-    @observable questions: QuestionModel[] = [];
-
-    constructor(rootStore: RootStore) {
-        super();
-        this.rootStore = rootStore;
+    set questions(questions: QuestionModel[]) {
+        this.items = questions;
     }
 
-    @action
-    addQuestion(question: QuestionModel) {
-        this.questions.push(question);
+    get questions(): QuestionModel[] {
+        return <QuestionModel[]>this.items;
     }
 }

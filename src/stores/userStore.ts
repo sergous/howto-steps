@@ -1,18 +1,12 @@
-import { RootStore, StoreCore } from '.';
-import { observable, action } from 'mobx';
+import { StoreCore } from '.';
 import { UserModel } from '../models';
 
 export class UserStore extends StoreCore {
-    rootStore: RootStore;
-    @observable users: UserModel[] = [];
-
-    constructor(rootStore: RootStore) {
-        super();
-        this.rootStore = rootStore;
+    set users(users: UserModel[]) {
+        this.items = users;
     }
 
-    @action
-    addUser(user: UserModel) {
-        this.users.push(user);
+    get users(): UserModel[] {
+        return <UserModel[]>this.items;
     }
 }
