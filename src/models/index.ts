@@ -1,6 +1,6 @@
 import { CommonModel } from './commonModel';
+export * from './datatypes';
 export * from './userModel';
-export * from './userData';
 export * from './roleUserModel';
 export * from './askerModel';
 export * from './questionModel';
@@ -8,7 +8,5 @@ export * from './stepModel';
 export * from './answerModel';
 export * from './adviserModel';
 export * from './solutionModel';
-export * from './datetime';
-export * from './id';
 export * from './itemModel';
 export { CommonModel };

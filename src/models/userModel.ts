@@ -1,18 +1,9 @@
-import { UserData, CommonModel } from '.';
+import { UserData, CommonModel, UserRole, RoleType } from '.';
 import { UserStore } from '../stores';
 import { observable } from 'mobx';
-export enum Role {
-    Guest,
-    Asker,
-    Adviser,
-    Reviewer,
-    Expert,
-}
-
-export type UserRole = Role | undefined;
 
 export class UserModel extends CommonModel {
-    static ROLE = Role;
+    static ROLE = RoleType;
     @observable name: string = '';
     @observable email: string = '';
     @observable protected role_?: UserRole;
