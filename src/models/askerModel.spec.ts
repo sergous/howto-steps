@@ -22,6 +22,9 @@ describe('askerModel', () => {
     it('should create new asker', () => {
         expect(asker.toObject()).toEqual({
             ...askerData,
+            role: AskerModel.ROLE.Asker,
+            questions: [],
+            solutions: [],
         });
     });
 

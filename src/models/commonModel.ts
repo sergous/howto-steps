@@ -70,13 +70,18 @@ export class CommonModel {
 
     toObject() {
         let result: any = {};
-        for (let prop in this) {
-            const item = this[prop];
-            if (prop.includes('_')) continue;
+        const model = this as any;
+        for (let prop in model) {
+            const item: any = model[prop];
             if (item === undefined) continue;
             if (item instanceof Function) continue;
+            if (prop.includes('_')) {
+                const getProp = prop.replace('_', '');
+                result[getProp] = model[prop];
+                continue;
+            }
 
-            result[prop] = this[prop];
+            result[prop] = model[prop];
         }
         return result;
     }
