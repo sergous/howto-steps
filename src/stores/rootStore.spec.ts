@@ -7,6 +7,8 @@ import {
     StepStore,
     UserStore,
     StoreCore,
+    TagStore,
+    QuestionRequestStore,
 } from '.';
 
 describe('root store', () => {
@@ -63,5 +65,19 @@ describe('root store', () => {
         expect(rootStore).toHaveProperty('userStore');
         expect(rootStore.userStore).toBeDefined();
         expect(rootStore.userStore).toBeInstanceOf(UserStore);
+    });
+
+    it('should hold ref to tag store', () => {
+        expect(rootStore).toHaveProperty('tagStore');
+        expect(rootStore.tagStore).toBeDefined();
+        expect(rootStore.tagStore).toBeInstanceOf(TagStore);
+    });
+
+    it('should hold ref to question request store', () => {
+        expect(rootStore).toHaveProperty('questionRequestStore');
+        expect(rootStore.questionRequestStore).toBeDefined();
+        expect(rootStore.questionRequestStore).toBeInstanceOf(
+            QuestionRequestStore,
+        );
     });
 });

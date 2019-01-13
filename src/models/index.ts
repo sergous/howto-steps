@@ -10,4 +10,5 @@ export * from './adviserModel';
 export * from './solutionModel';
 export * from './itemModel';
 export * from './tagModel';
+export * from './questionRequestModel';
 export { CommonModel };
