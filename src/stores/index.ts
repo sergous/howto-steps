@@ -7,3 +7,4 @@ export * from './questionStore';
 export * from './answerStore';
 export * from './stepStore';
 export * from './userStore';
+export * from './tagStore';

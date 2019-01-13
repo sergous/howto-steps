@@ -1,15 +1,19 @@
 import { AnswerModel } from './answerModel';
-import { StepModel } from '.';
+import { StepModel, TagModel } from '.';
 import { AnswerStore, RootStore } from '../stores';
 
 describe('answerModel', () => {
     let steps: StepModel[];
     let step: StepModel;
     let answer: AnswerModel;
+    let tag: TagModel;
+    let tags: TagModel[];
 
     beforeEach(() => {
         step = new StepModel('Step name', 'Step description');
         steps = [step];
+        tag = new TagModel(TagModel.TYPE.Price);
+        tags = [tag];
         answer = new AnswerModel();
     });
 
@@ -31,6 +35,27 @@ describe('answerModel', () => {
         it('should remove step', () => {
             answer.removeStep(step);
             expect(answer.steps).not.toContain(step);
+        });
+    });
+
+    it('should set tags', () => {
+        answer.tags = tags;
+        expect(answer.tags).toEqual(tags);
+    });
+
+    it('should add tag', () => {
+        answer.addTag(tag);
+        expect(answer.tags).toContain(tag);
+    });
+
+    describe('with tag', () => {
+        beforeEach(() => {
+            answer.addTag(tag);
+        });
+
+        it('should remove tag', () => {
+            answer.removeTag(tag);
+            expect(answer.tags).not.toContain(tag);
         });
     });
 
