@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import { CommonModelError } from '../errors';
-import { Datetime, Id } from '.';
+import { Datetime, Id, ItemsModel } from '.';
 import { StoreCore } from '../stores';
 
 export class CommonModel {
@@ -57,12 +57,16 @@ export class CommonModel {
         let result: any = {};
         const model = this as any;
         for (let prop in model) {
-            const item: any = model[prop];
-            if (item === undefined) continue;
-            if (item instanceof Function) continue;
+            const modelProp: any = model[prop];
+            if (modelProp === undefined) continue;
+            if (modelProp instanceof Function) continue;
+            if (modelProp instanceof ItemsModel) {
+                result[prop] = modelProp.items;
+                continue;
+            }
             if (prop.includes('_')) {
-                const getProp = prop.replace('_', '');
-                result[getProp] = model[prop];
+                const publicProp = prop.replace('_', '');
+                result[publicProp] = modelProp;
                 continue;
             }
 

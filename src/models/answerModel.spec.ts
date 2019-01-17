@@ -18,43 +18,43 @@ describe('answerModel', () => {
     });
 
     it('should set steps', () => {
-        answer.steps = steps;
-        expect(answer.steps).toEqual(steps);
+        answer.steps.items = steps;
+        expect(answer.steps.items).toEqual(steps);
     });
 
     it('should add step', () => {
-        answer.addStep(step);
-        expect(answer.steps).toContain(step);
+        answer.steps.add(step);
+        expect(answer.steps.items).toContain(step);
     });
 
     describe('with step', () => {
         beforeEach(() => {
-            answer.addStep(step);
+            answer.steps.add(step);
         });
 
         it('should remove step', () => {
-            answer.removeStep(step);
+            answer.steps.remove(step);
             expect(answer.steps).not.toContain(step);
         });
     });
 
     it('should set tags', () => {
-        answer.tags = tags;
-        expect(answer.tags).toEqual(tags);
+        answer.tags.items = tags;
+        expect(answer.tags.items).toEqual(tags);
     });
 
     it('should add tag', () => {
-        answer.addTag(tag);
-        expect(answer.tags).toContain(tag);
+        answer.tags.add(tag);
+        expect(answer.tags.items).toContain(tag);
     });
 
     describe('with tag', () => {
         beforeEach(() => {
-            answer.addTag(tag);
+            answer.tags.add(tag);
         });
 
         it('should remove tag', () => {
-            answer.removeTag(tag);
+            answer.tags.remove(tag);
             expect(answer.tags).not.toContain(tag);
         });
     });

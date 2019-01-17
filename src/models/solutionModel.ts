@@ -4,7 +4,8 @@ import { SolutionModelError } from '../errors';
 
 export class SolutionModel extends CommonModel {
     @observable private question_?: QuestionModel;
-    @observable private answers_: AnswerModel[] = [];
+
+    answers = new ItemsModel();
 
     ERROR = SolutionModelError;
 
@@ -14,23 +15,5 @@ export class SolutionModel extends CommonModel {
 
     get question() {
         return this.question_;
-    }
-
-    set answers(answers: AnswerModel[]) {
-        this.answers_ = answers;
-    }
-
-    get answers(): AnswerModel[] {
-        return this.answers_;
-    }
-
-    @action
-    addAnswer(answer: AnswerModel) {
-        this.answers_.push(answer);
-    }
-
-    @action
-    removeAnswer(answer: AnswerModel) {
-        this.answers_ = ItemsModel.remove(this.answers_)(answer);
     }
 }

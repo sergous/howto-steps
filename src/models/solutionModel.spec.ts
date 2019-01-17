@@ -55,22 +55,22 @@ describe('SolutionModel', () => {
                 step3 = new StepModel('Press harder');
 
                 answer = new AnswerModel();
-                answer.steps = [step1, step2];
+                answer.steps.items = [step1, step2];
 
                 answer2 = new AnswerModel();
-                answer2.steps = [step3];
+                answer2.steps.items = [step3];
 
-                solution.answers = [answer];
+                solution.answers.items = [answer];
             });
             it('should contain answer', () => {
-                expect(solution.answers).toContain(answer);
+                expect(solution.answers.items).toContain(answer);
             });
             it('shoudld add answer', () => {
-                solution.addAnswer(answer2);
-                expect(solution.answers).toContain(answer2);
+                solution.answers.add(answer2);
+                expect(solution.answers.items).toContain(answer2);
             });
             it('should remove answer', () => {
-                solution.removeAnswer(answer);
+                solution.answers.remove(answer);
                 expect(solution.answers).not.toContain(answer);
             });
         });

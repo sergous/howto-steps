@@ -4,7 +4,8 @@ import { QuestionRequestStore } from '../stores';
 
 export class QuestionRequestModel extends CommonModel {
     @observable private question_?: QuestionModel;
-    @observable private tags_: TagModel[] = [];
+
+    tags = new ItemsModel();
 
     constructor(question?: QuestionModel, store?: QuestionRequestStore) {
         super(store);
@@ -17,23 +18,5 @@ export class QuestionRequestModel extends CommonModel {
 
     get question(): QuestionModel | undefined {
         return this.question_;
-    }
-
-    set tags(tags: TagModel[]) {
-        this.tags_ = tags;
-    }
-
-    get tags(): TagModel[] {
-        return this.tags_;
-    }
-    
-    @action
-    addTag(tag: TagModel) {
-        this.tags_.push(tag);
-    }
-
-    @action
-    removeTag(tag: TagModel) {
-        this.tags_ = ItemsModel.remove(this.tags_)(tag);
     }
 }

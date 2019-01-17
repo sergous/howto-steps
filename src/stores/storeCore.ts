@@ -58,12 +58,12 @@ export class StoreCore {
         if (i === undefined) {
             throw new this.ERROR('not found');
         } else {
-            this.items = ItemsModel.remove(this.items)(item);
+            this.items = ItemsModel.removeItem(this.items)(item);
             return i;
         }
     }
 
-    findOne = (item: ItemModel) => ItemsModel.findOne(this.items)(item);
+    findOne = (item: ItemModel) => ItemsModel.findOneItem(this.items)(item);
 
-    findIndex = (item: ItemModel) => ItemsModel.findIndex(this.items)(item);
+    findIndex = (item: ItemModel) => ItemsModel.findItemIndex(this.items)(item);
 }

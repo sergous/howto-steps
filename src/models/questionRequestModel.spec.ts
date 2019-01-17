@@ -25,22 +25,22 @@ describe('questionRequestModel', () => {
     });
 
     it('should set tags', () => {
-        request.tags = tags;
-        expect(request.tags).toEqual(tags);
+        request.tags.items = tags;
+        expect(request.tags.items).toEqual(tags);
     });
 
     it('should add tag', () => {
-        request.addTag(tag);
-        expect(request.tags).toContain(tag);
+        request.tags.add(tag);
+        expect(request.tags.items).toContain(tag);
     });
 
     describe('with tag', () => {
         beforeEach(() => {
-            request.addTag(tag);
+            request.tags.add(tag);
         });
 
         it('should remove tag', () => {
-            request.removeTag(tag);
+            request.tags.remove(tag);
             expect(request.tags).not.toContain(tag);
         });
     });

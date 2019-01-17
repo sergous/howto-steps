@@ -5,7 +5,8 @@ import { StoreCore } from '../stores';
 export class StepModel extends CommonModel {
     @observable private name_: string;
     @observable private description_: string;
-    @observable private solutions_: SolutionModel[] = [];
+
+    solutions = new ItemsModel();
 
     constructor(name: string, description: string = '', store?: StoreCore) {
         super(store);
@@ -27,23 +28,5 @@ export class StepModel extends CommonModel {
 
     get description() {
         return this.description_;
-    }
-
-    set solutions(solutions: SolutionModel[]) {
-        this.solutions_ = solutions;
-    }
-
-    get solutions(): SolutionModel[] {
-        return this.solutions_;
-    }
-
-    @action
-    addSolution(solution: SolutionModel) {
-        this.solutions_.push(solution);
-    }
-
-    @action
-    removeSolution(solution: SolutionModel) {
-        this.solutions_ = ItemsModel.remove(this.solutions_)(solution);
     }
 }

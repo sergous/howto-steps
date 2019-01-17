@@ -27,11 +27,11 @@ describe('stepModel', () => {
             solution = new SolutionModel();
         });
         it('should add solution', () => {
-            step.addSolution(solution);
-            expect(step.solutions).toContain(solution);
+            step.solutions.add(solution);
+            expect(step.solutions.items).toContain(solution);
         });
         it('should remove solution', () => {
-            step.removeSolution(solution);
+            step.solutions.remove(solution);
             expect(step.solutions).not.toContain(solution);
         });
     });
