@@ -1,4 +1,4 @@
-import { StepModel, CommonModel, TagModel } from '.';
+import { StepModel, CommonModel, TagModel, ItemsModel } from '.';
 import { action, observable } from 'mobx';
 import { AnswerModelError } from '../errors';
 
@@ -22,7 +22,7 @@ export class AnswerModel extends CommonModel {
 
     @action
     removeStep(step: StepModel) {
-        this.steps_ = StepModel.remove(this.steps_)(step);
+        this.steps_ = ItemsModel.remove(this.steps_)(step);
     }
 
     set tags(tags: TagModel[]) {
@@ -40,6 +40,6 @@ export class AnswerModel extends CommonModel {
 
     @action
     removeTag(tag: TagModel) {
-        this.tags_ = TagModel.remove(this.tags_)(tag);
+        this.tags_ = ItemsModel.remove(this.tags_)(tag);
     }
 }

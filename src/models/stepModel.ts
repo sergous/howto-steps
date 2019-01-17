@@ -1,4 +1,4 @@
-import { CommonModel, SolutionModel } from '.';
+import { CommonModel, SolutionModel, ItemsModel } from '.';
 import { observable, action } from 'mobx';
 import { StoreCore } from '../stores';
 
@@ -44,6 +44,6 @@ export class StepModel extends CommonModel {
 
     @action
     removeSolution(solution: SolutionModel) {
-        this.solutions_ = SolutionModel.remove(this.solutions_)(solution);
+        this.solutions_ = ItemsModel.remove(this.solutions_)(solution);
     }
 }

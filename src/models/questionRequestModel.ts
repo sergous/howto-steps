@@ -1,4 +1,4 @@
-import { CommonModel, TagModel, QuestionModel } from '.';
+import { CommonModel, TagModel, QuestionModel, ItemsModel } from '.';
 import { observable, action } from 'mobx';
 import { QuestionRequestStore } from '../stores';
 
@@ -34,6 +34,6 @@ export class QuestionRequestModel extends CommonModel {
 
     @action
     removeTag(tag: TagModel) {
-        this.tags_ = TagModel.remove(this.tags_)(tag);
+        this.tags_ = ItemsModel.remove(this.tags_)(tag);
     }
 }

@@ -1,4 +1,4 @@
-import { RoleUserModel, QuestionModel } from '.';
+import { RoleUserModel, QuestionModel, ItemsModel } from '.';
 import { observable, action } from 'mobx';
 import { AskerModelError } from '../errors';
 import { SolutionModel } from './solutionModel';
@@ -42,23 +42,23 @@ export class AskerModel extends RoleUserModel {
     }
 
     findQuestion = (question: QuestionModel) =>
-        QuestionModel.findOne(this.questions_)(question);
+        ItemsModel.findOne(this.questions_)(question);
 
     findSolution = (solution: SolutionModel) =>
-        SolutionModel.findOne(this.solutions_)(solution);
+        ItemsModel.findOne(this.solutions_)(solution);
 
     @action
     removeSolution(solution: SolutionModel) {
         if (!solution || !this.findSolution(solution))
             throw new this.ERROR('solution not found');
-        this.solutions_ = SolutionModel.remove(this.solutions_)(solution);
+        this.solutions_ = ItemsModel.remove(this.solutions_)(solution);
     }
 
     @action
     removeQuestion(question: QuestionModel) {
         if (!question || !this.findQuestion(question))
             throw new this.ERROR('question not found');
-        this.questions_ = QuestionModel.remove(this.questions_)(question);
+        this.questions_ = ItemsModel.remove(this.questions_)(question);
     }
 
     @action

@@ -1,5 +1,5 @@
 import uniqid from 'uniqid';
-import { CommonModel, Id, ItemModel } from '../models';
+import { CommonModel, Id, ItemModel, ItemsModel } from '../models';
 import { observable, action } from 'mobx';
 import { StoreCoreError } from '../errors';
 import { RootStore } from '.';
@@ -58,12 +58,12 @@ export class StoreCore {
         if (i === undefined) {
             throw new this.ERROR('not found');
         } else {
-            this.items = CommonModel.remove(this.items)(item);
+            this.items = ItemsModel.remove(this.items)(item);
             return i;
         }
     }
 
-    findOne = (item: ItemModel) => CommonModel.findOne(this.items)(item);
+    findOne = (item: ItemModel) => ItemsModel.findOne(this.items)(item);
 
-    findIndex = (item: ItemModel) => CommonModel.findIndex(this.items)(item);
+    findIndex = (item: ItemModel) => ItemsModel.findIndex(this.items)(item);
 }

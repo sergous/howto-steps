@@ -1,5 +1,4 @@
-import { QuestionModel, AnswerModel, CommonModel } from '.';
-import { SolutionStore } from '../stores';
+import { QuestionModel, AnswerModel, CommonModel, ItemsModel } from '.';
 import { observable, action } from 'mobx';
 import { SolutionModelError } from '../errors';
 
@@ -32,6 +31,6 @@ export class SolutionModel extends CommonModel {
 
     @action
     removeAnswer(answer: AnswerModel) {
-        this.answers_ = AnswerModel.remove(this.answers_)(answer);
+        this.answers_ = ItemsModel.remove(this.answers_)(answer);
     }
 }

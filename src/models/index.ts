@@ -11,4 +11,5 @@ export * from './solutionModel';
 export * from './itemModel';
 export * from './tagModel';
 export * from './questionRequestModel';
+export * from './itemsModel';
 export { CommonModel };

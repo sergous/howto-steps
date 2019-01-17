@@ -1,24 +1,9 @@
 import { observable, action } from 'mobx';
 import { CommonModelError } from '../errors';
-import { Datetime, Id, ItemModel } from '.';
+import { Datetime, Id } from '.';
 import { StoreCore } from '../stores';
 
 export class CommonModel {
-    static remove = (items: ItemModel[]) => (item: ItemModel): ItemModel[] =>
-        items.filter(i => !!item.id && i.id !== item.id);
-
-    static findOne = (items: ItemModel[]) => (
-        item: ItemModel,
-    ): ItemModel | undefined => items.find(i => !!item.id && i.id === item.id);
-
-    static findIndex = (items: ItemModel[]) => (
-        item: ItemModel,
-    ): number | undefined => {
-        const index = items.findIndex(i => !!item.id && i.id === item.id);
-        if (index === -1) return;
-        return index;
-    };
-
     @observable protected id_?: Id;
     @observable private createTime_?: Datetime;
     @observable private updateTime_?: Datetime;
