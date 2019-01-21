@@ -31,8 +31,9 @@ describe('stepModel', () => {
             expect(step.solutions.items).toContain(solution);
         });
         it('should remove solution', () => {
+            step.solutions.add(solution);
             step.solutions.remove(solution);
-            expect(step.solutions).not.toContain(solution);
+            expect(step.solutions.items).not.toContain(solution);
         });
     });
 

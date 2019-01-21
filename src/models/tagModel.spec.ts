@@ -10,9 +10,7 @@ describe('tagModel', () => {
     });
 
     it('should create new tag', () => {
-        expect(tag.toObject()).toEqual({
-            type,
-        });
+        expect(tag.type).toEqual(TagModel.TYPE.Domain);
     });
 
     it('should set tag type', () => {

@@ -1,9 +1,14 @@
-import { observable, action } from 'mobx';
+import uniqid from 'uniqid';
+import { observable, action, computed } from 'mobx';
 import { CommonModelError } from '../errors';
 import { Datetime, Id, ItemsModel } from '.';
 import { StoreCore } from '../stores';
 
 export class CommonModel {
+    static get uniqId() {
+        return uniqid();
+    }
+
     @observable protected id_?: Id;
     @observable private createTime_?: Datetime;
     @observable private updateTime_?: Datetime;
@@ -13,6 +18,7 @@ export class CommonModel {
 
     constructor(store?: StoreCore) {
         if (store) this.bindToStore(store);
+        else this.id = CommonModel.uniqId;
     }
 
     @action
@@ -29,9 +35,16 @@ export class CommonModel {
         this.store_ = undefined;
     }
 
+    @computed
+    get isInStore() {
+        return !!this.store_;
+    }
+
     set id(id: Id) {
-        if (this.id_) {
-            throw new this.ERROR('Immutable id is already set');
+        if (this.id_ && this.isInStore) {
+            throw new this.ERROR(
+                `Id is already set, it's is immutable then item is in store`,
+            );
         }
         this.id_ = id;
     }

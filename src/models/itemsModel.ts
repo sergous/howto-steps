@@ -1,4 +1,4 @@
-import { ItemModel } from '.';
+import { ItemModel, Id, CommonModel } from '.';
 import { ItemsModelError } from '../errors';
 import { action, observable } from 'mobx';
 
@@ -7,6 +7,13 @@ export class ItemsModel {
     static addItem = (items: ItemModel[]) => (item: ItemModel) => {
         items.push(item);
         return items;
+    };
+
+    @action
+    static updateItem = (items: ItemModel[]) => (item: ItemModel) => {
+        let foundItem = ItemsModel.findOneItem(items)(item);
+        if (!foundItem) return;
+        return Object.assign(foundItem, item);
     };
 
     @action
@@ -40,11 +47,35 @@ export class ItemsModel {
         return this.items_;
     }
 
-    add(item: ItemModel) {
-        return (this.items_ = ItemsModel.addItem(this.items_)(item));
+    get newId(): Id {
+        return CommonModel.uniqId;
     }
 
+    @action
+    create(item: ItemModel = new CommonModel()): ItemModel {
+        item.id = this.newId;
+        this.add(item);
+        return item;
+    }
+
+    @action
+    add(item: ItemModel): ItemModel {
+        if (!item.id) throw new this.ERROR('should have id');
+        const found = this.findOne(item);
+        if (found) throw new this.ERROR('already exists');
+        ItemsModel.addItem(this.items_)(item);
+        return item;
+    }
+
+    @action
+    update(item: ItemModel) {
+        this.findOneOrThrowError_(item);
+        return ItemsModel.updateItem(this.items_)(item);
+    }
+
+    @action
     remove(item: ItemModel) {
+        this.findOneOrThrowError_(item);
         return (this.items_ = ItemsModel.removeItem(this.items_)(item));
     }
 
@@ -54,6 +85,15 @@ export class ItemsModel {
 
     findIndex(item: ItemModel) {
         return ItemsModel.findItemIndex(this.items_)(item);
+    }
+
+    private findOneOrThrowError_(
+        item: ItemModel,
+        errorMessage: string = 'not found',
+    ): ItemModel {
+        let i = this.findIndex(item);
+        if (i === undefined) throw new this.ERROR(errorMessage);
+        return i;
     }
 
     ERROR = ItemsModelError;

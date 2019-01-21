@@ -30,11 +30,11 @@ describe('StoreCore', () => {
     describe('add', () => {
         it('should add item with id', () => {
             item = new CommonModel();
-            item.id = storeCore.newId;
             expect(storeCore.add(item)).toBe(item);
         });
         it('should not add item with no id', () => {
             item = new CommonModel();
+            item.id = undefined;
             const addItem = () => storeCore.add(item);
             expect(addItem).toThrowError(StoreCoreError);
         });
@@ -73,7 +73,7 @@ describe('StoreCore', () => {
         });
 
         it('should remove item', () => {
-            expect(storeCore.remove(item)).toBe(0);
+            storeCore.remove(item);
             expect(storeCore.items).not.toContain(item);
         });
         it('should not remove item', () => {

@@ -14,9 +14,8 @@ describe('userModel', () => {
     });
 
     it('should create new user', () => {
-        expect(user.toObject()).toEqual({
-            ...userData,
-        });
+        expect(user.name).toBe(userData.name);
+        expect(user.email).toBe(userData.email);
     });
 
     it('should set user role', () => {

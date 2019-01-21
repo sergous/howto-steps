@@ -20,12 +20,9 @@ describe('askerModel', () => {
     });
 
     it('should create new asker', () => {
-        expect(asker.toObject()).toEqual({
-            ...askerData,
-            role: AskerModel.ROLE.Asker,
-            questions: [],
-            solutions: [],
-        });
+        expect(asker.name).toBe(askerData.name);
+        expect(asker.email).toBe(askerData.email);
+        expect(asker.role).toBe(AskerModel.ROLE.Asker);
     });
 
     it('should have asker role', () => {
@@ -116,7 +113,7 @@ describe('askerModel', () => {
 
             beforeEach(() => {
                 solution = new SolutionModel();
-                solution.id = StoreCore.uniqId;
+                solution.id = AskerModel.uniqId;
                 solution.question = question;
                 asker.resolve(solution);
 

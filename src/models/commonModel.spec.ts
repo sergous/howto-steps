@@ -11,8 +11,8 @@ describe('CommonModel', () => {
             commonModel = new CommonModel();
         });
 
-        it('should not have id', () => {
-            expect(commonModel.id).not.toBeDefined();
+        it('should have id', () => {
+            expect(commonModel.id).toBeDefined();
         });
 
         it('should set id', () => {
@@ -38,13 +38,10 @@ describe('CommonModel', () => {
             expect(commonModel.updateTime).toBeDefined();
         });
 
-        describe('with id', () => {
-            beforeEach(() => (commonModel.id = 'newId'));
-
-            it('should not update id', () => {
-                const setId = () => (commonModel.id = 'newId');
-                expect(setId).toThrowError(CommonModelError);
-            });
+        it('should update id', () => {
+            const newId = 'newId';
+            commonModel.id = newId;
+            expect(commonModel.id).toBe(newId);
         });
     });
 
@@ -64,6 +61,13 @@ describe('CommonModel', () => {
             it('should create item in store1', () => {
                 expect(store1.findOne(commonModel)).toBe(commonModel);
             });
+            it('should not update id', () => {
+                const setId = () => (commonModel.id = 'newId');
+                expect(setId).toThrowError(CommonModelError);
+            });
+            it('should be in store', () => {
+                expect(commonModel.isInStore).toBeTruthy();
+            });
         });
 
         describe('bindToStore', () => {
@@ -72,6 +76,9 @@ describe('CommonModel', () => {
             });
             it('should create item in store1', () => {
                 expect(store1.findOne(commonModel)).toBe(commonModel);
+            });
+            it('should be in store', () => {
+                expect(commonModel.isInStore).toBeTruthy();
             });
         });
 
@@ -82,6 +89,7 @@ describe('CommonModel', () => {
             it('should remove item from store1', () => {
                 commonModel.unbindFromStore(store1);
                 expect(store1.findOne(commonModel)).toBeUndefined();
+                expect(commonModel.isInStore).toBeFalsy();
             });
         });
 
