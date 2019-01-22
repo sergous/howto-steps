@@ -8,7 +8,7 @@ import {
     UserStore,
     StoreCore,
     TagStore,
-    QuestionRequestStore,
+    RequestStore,
 } from '.';
 
 describe('root store', () => {
@@ -73,11 +73,9 @@ describe('root store', () => {
         expect(rootStore.tagStore).toBeInstanceOf(TagStore);
     });
 
-    it('should hold ref to question request store', () => {
-        expect(rootStore).toHaveProperty('questionRequestStore');
-        expect(rootStore.questionRequestStore).toBeDefined();
-        expect(rootStore.questionRequestStore).toBeInstanceOf(
-            QuestionRequestStore,
-        );
+    it('should hold ref to request store', () => {
+        expect(rootStore).toHaveProperty('requestStore');
+        expect(rootStore.requestStore).toBeDefined();
+        expect(rootStore.requestStore).toBeInstanceOf(RequestStore);
     });
 });

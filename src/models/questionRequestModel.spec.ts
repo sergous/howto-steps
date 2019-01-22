@@ -1,5 +1,5 @@
 import { QuestionModel, QuestionRequestModel, TagModel } from '.';
-import { RootStore, QuestionRequestStore } from '../stores';
+import { RootStore, RequestStore } from '../stores';
 
 describe('questionRequestModel', () => {
     let request: QuestionRequestModel;
@@ -46,11 +46,11 @@ describe('questionRequestModel', () => {
     });
 
     describe('with store', () => {
-        let store: QuestionRequestStore;
+        let store: RequestStore;
 
         beforeEach(() => {
             const rootStore = new RootStore();
-            store = rootStore.questionRequestStore;
+            store = rootStore.requestStore;
             request = new QuestionRequestModel(question, store);
         });
 
@@ -58,7 +58,11 @@ describe('questionRequestModel', () => {
             const anyRequest = request as any;
             expect(anyRequest).toHaveProperty('store_');
             expect(anyRequest.store_).toBeDefined();
-            expect(anyRequest.store_).toBeInstanceOf(QuestionRequestStore);
+            expect(anyRequest.store_).toBeInstanceOf(RequestStore);
+        });
+
+        it('should contain questionRequest in store', () => {
+            expect(store.questionRequests).toContain(request);
         });
 
         it('should find questionRequest in store', () => {

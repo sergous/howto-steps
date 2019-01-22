@@ -1,13 +1,13 @@
 import { ItemModel, QuestionModel, ItemsModel } from '.';
 import { observable } from 'mobx';
-import { QuestionRequestStore } from '../stores';
+import { RequestStore } from '../stores';
 
 export class QuestionRequestModel extends ItemModel {
     @observable private question_?: QuestionModel;
 
     tags = new ItemsModel();
 
-    constructor(question?: QuestionModel, store?: QuestionRequestStore) {
+    constructor(question?: QuestionModel, store?: RequestStore) {
         super(store);
         this.question_ = question;
     }

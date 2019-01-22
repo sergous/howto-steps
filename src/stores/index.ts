@@ -8,4 +8,4 @@ export * from './answerStore';
 export * from './stepStore';
 export * from './userStore';
 export * from './tagStore';
-export * from './questionRequestStore';
+export * from './requestStore';
