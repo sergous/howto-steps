@@ -1,5 +1,5 @@
 import { AskerModel, QuestionModel, UserData, SolutionModel } from '.';
-import { AskerModelError, RoleUserModelError } from '../errors';
+import { RoleUserModelError } from '../errors';
 
 describe('askerModel', () => {
     let asker: AskerModel;
@@ -16,6 +16,10 @@ describe('askerModel', () => {
         question = new QuestionModel('How to push?');
         question2 = new QuestionModel('How to pull?');
         question.id = 'questionId';
+    });
+
+    it('should set ERROR', () => {
+        expect(asker.ERROR).toBe(RoleUserModelError);
     });
 
     it('should create new asker', () => {
@@ -67,7 +71,7 @@ describe('askerModel', () => {
             });
             it('should not ask same question', () => {
                 const ask2 = () => asker.ask(question);
-                expect(ask2).toThrowError(AskerModelError);
+                expect(ask2).toThrowError(RoleUserModelError);
             });
             it('should not have not asked question', () => {
                 const newQuestion = new QuestionModel('How to push?');
@@ -82,7 +86,7 @@ describe('askerModel', () => {
             });
             it('should not resolve unknown question', () => {
                 const resolve = () => asker.resolve(solution);
-                expect(resolve).toThrowError(AskerModelError);
+                expect(resolve).toThrowError(RoleUserModelError);
             });
             it('should resolve existing question', () => {
                 solution.question = question;
@@ -101,7 +105,7 @@ describe('askerModel', () => {
                 const unknownQuestion = new QuestionModel();
                 const remove = () => asker.questions.remove(unknownQuestion);
                 // TODO(sergous): Handle not existing
-                expect(remove).toThrowError(AskerModelError);
+                expect(remove).toThrowError(RoleUserModelError);
                 expect(asker.questions.items).toContain(question);
             });
         });
@@ -112,7 +116,6 @@ describe('askerModel', () => {
 
             beforeEach(() => {
                 solution = new SolutionModel();
-                solution.id = solution.newId;
                 solution.question = question;
                 asker.resolve(solution);
 
@@ -130,7 +133,7 @@ describe('askerModel', () => {
                 });
                 xit('should not remove solution', () => {
                     const remove = () => asker.solutions.remove(solution2);
-                    expect(remove).toThrowError(AskerModelError);
+                    expect(remove).toThrowError(RoleUserModelError);
                     expect(asker.questions.items).toContain(question);
                 });
             });

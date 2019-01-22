@@ -17,6 +17,10 @@ describe('adviserModel', () => {
         question = new QuestionModel('How many miles in one kilometer');
     });
 
+    it('should set ERROR', () => {
+        expect(adviser.ERROR).toBe(RoleUserModelError);
+    });
+
     describe('init with role', () => {
         it('should accept valid role', () => {
             advisorData.role = AdviserModel.ROLE.Adviser;

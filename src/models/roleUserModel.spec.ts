@@ -13,6 +13,10 @@ describe('roleUserModel', () => {
         roleUser = new RoleUserModel(userData);
     });
 
+    it('should set ERROR', () => {
+        expect(roleUser.ERROR).toBe(RoleUserModelError);
+    });
+
     describe('init role', () => {
         beforeEach(() => {
             userData.role = RoleUserModel.ROLE.Asker;

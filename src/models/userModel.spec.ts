@@ -1,5 +1,6 @@
 import { UserModel, UserData } from '.';
 import { UserStore, RootStore } from '../stores';
+import { UserModelError } from '../errors';
 
 describe('userModel', () => {
     let user: UserModel;
@@ -11,6 +12,10 @@ describe('userModel', () => {
             email: 'user@host.com',
         };
         user = new UserModel(userData);
+    });
+
+    it('should set ERROR', () => {
+        expect(user.ERROR).toBe(UserModelError);
     });
 
     it('should create new user', () => {

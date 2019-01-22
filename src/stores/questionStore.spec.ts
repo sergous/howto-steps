@@ -1,5 +1,6 @@
 import { RootStore, QuestionStore } from '.';
 import { QuestionModel } from '../models';
+import { QuestionStoreError } from '../errors';
 
 describe('question store', () => {
     let store: QuestionStore;
@@ -17,8 +18,23 @@ describe('question store', () => {
 
     it('should add new question', () => {
         const question = new QuestionModel('How is the whether today?');
-        question.id = store.newId;
         store.add(question);
         expect(store.questions).toContain(question);
+    });
+
+    it('should set ERROR', () => {
+        expect(store.ERROR).toBe(QuestionStoreError);
+    });
+
+    describe('with question', () => {
+        let question: QuestionModel;
+
+        beforeEach(() => {
+            question = new QuestionModel('When is the best time?', store);
+        });
+
+        it('should have question', () => {
+            expect(store.questions).toContain(question);
+        });
     });
 });

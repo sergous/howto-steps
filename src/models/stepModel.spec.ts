@@ -1,6 +1,7 @@
 import { StepModel } from '.';
 import { SolutionModel } from './solutionModel';
 import { StepStore, RootStore } from '../stores';
+import { StepModelError } from '../errors';
 
 describe('stepModel', () => {
     let step: StepModel;
@@ -11,6 +12,10 @@ describe('stepModel', () => {
         name = 'Prepare for give thing';
         description = 'Some info about thing preparation';
         step = new StepModel(name, description);
+    });
+
+    it('should set ERROR', () => {
+        expect(step.ERROR).toBe(StepModelError);
     });
 
     it('should have name', () => {

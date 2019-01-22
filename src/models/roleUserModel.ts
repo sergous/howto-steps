@@ -3,9 +3,10 @@ import { RoleUserModelError } from '../errors';
 import { UserStore } from '../stores';
 
 export class RoleUserModel extends UserModel {
+    ERROR = RoleUserModelError;
+
     constructor(userData: UserData, store?: UserStore) {
-        delete userData.role;
-        super(userData, store);
+        super({ ...userData, role: undefined }, store);
     }
 
     set role(role: UserRole) {

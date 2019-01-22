@@ -13,3 +13,6 @@ export * from './solutionError';
 export * from './answerError';
 export * from './userError';
 export * from './requestError';
+export * from './questionError';
+export * from './tagError';
+export * from './stepError';

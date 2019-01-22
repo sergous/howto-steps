@@ -1,6 +1,7 @@
 import { AnswerModel } from './answerModel';
 import { StepModel, TagModel } from '.';
 import { AnswerStore, RootStore } from '../stores';
+import { AnswerModelError } from '../errors';
 
 describe('answerModel', () => {
     let steps: StepModel[];
@@ -15,6 +16,10 @@ describe('answerModel', () => {
         tag = new TagModel(TagModel.TYPE.Price);
         tags = [tag];
         answer = new AnswerModel();
+    });
+
+    it('should set ERROR', () => {
+        expect(answer.ERROR).toBe(AnswerModelError);
     });
 
     it('should set steps', () => {

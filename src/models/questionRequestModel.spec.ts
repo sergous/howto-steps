@@ -1,5 +1,6 @@
 import { QuestionModel, QuestionRequestModel, TagModel } from '.';
 import { RootStore, RequestStore } from '../stores';
+import { RequestModelError } from '../errors';
 
 describe('questionRequestModel', () => {
     let request: QuestionRequestModel;
@@ -12,6 +13,10 @@ describe('questionRequestModel', () => {
         request = new QuestionRequestModel(question);
         tag = new TagModel(TagModel.TYPE.Price);
         tags = [tag];
+    });
+
+    it('should set ERROR', () => {
+        expect(request.ERROR).toBe(RequestModelError);
     });
 
     it('should create new question request', () => {

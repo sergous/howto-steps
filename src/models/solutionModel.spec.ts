@@ -1,5 +1,6 @@
 import { SolutionModel, StepModel, AnswerModel, QuestionModel } from '.';
 import { RootStore, SolutionStore } from '../stores';
+import { SolutionModelError } from '../errors';
 
 describe('SolutionModel', () => {
     let solution: SolutionModel;
@@ -12,6 +13,10 @@ describe('SolutionModel', () => {
     describe('with solution', () => {
         beforeEach(() => {
             solution = new SolutionModel();
+        });
+
+        it('should set ERROR', () => {
+            expect(solution.ERROR).toBe(SolutionModelError);
         });
 
         it('should not have question', () => {

@@ -1,5 +1,6 @@
 import { RootStore, StepStore } from '.';
 import { StepModel } from '../models';
+import { StepStoreError } from '../errors';
 
 describe('step store', () => {
     let store: StepStore;
@@ -17,8 +18,23 @@ describe('step store', () => {
 
     it('should add new step', () => {
         const step = new StepModel('New step');
-        step.id = store.newId;
         store.add(step);
         expect(store.steps).toContain(step);
+    });
+
+    it('should set ERROR', () => {
+        expect(store.ERROR).toBe(StepStoreError);
+    });
+
+    describe('with step', () => {
+        let step: StepModel;
+
+        beforeEach(() => {
+            step = new StepModel('Jump on right foot', 'Sit then jump', store);
+        });
+
+        it('should have step', () => {
+            expect(store.steps).toContain(step);
+        });
     });
 });

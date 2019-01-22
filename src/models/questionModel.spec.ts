@@ -1,5 +1,6 @@
 import { QuestionModel } from '.';
 import { QuestionStore, RootStore } from '../stores';
+import { QuestionModelError } from '../errors';
 
 describe('questionModel', () => {
     let question: QuestionModel;
@@ -8,6 +9,10 @@ describe('questionModel', () => {
     beforeEach(() => {
         query = 'How to pull?';
         question = new QuestionModel('How to pull?');
+    });
+
+    it('should set ERROR', () => {
+        expect(question.ERROR).toBe(QuestionModelError);
     });
 
     it('should have query', () => {

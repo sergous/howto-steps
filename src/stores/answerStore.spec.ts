@@ -16,7 +16,7 @@ describe('answer store', () => {
         expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
-    it('should set error', () => {
+    it('should set ERROR', () => {
         expect(store.ERROR).toBe(AnswerStoreError);
     });
 

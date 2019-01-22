@@ -1,15 +1,10 @@
 import { RoleUserModel, QuestionModel, ItemsModel } from '.';
-import { observable, action } from 'mobx';
-import { AskerModelError } from '../errors';
 import { SolutionModel } from './solutionModel';
-import { AnswerModel } from './answerModel';
 
 export class AskerModel extends RoleUserModel {
     questions = new ItemsModel();
     solutions = new ItemsModel();
     role = AskerModel.ROLE.Asker;
-
-    ERROR = AskerModelError;
 
     ask(question: QuestionModel) {
         if (this.questions.findOne(question))

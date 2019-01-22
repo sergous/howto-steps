@@ -6,9 +6,13 @@ describe('ItemModel', () => {
     beforeEach(() => {});
     let itemModel: ItemModel;
 
-    describe('with solution', () => {
+    describe('with item', () => {
         beforeEach(() => {
             itemModel = new ItemModel();
+        });
+
+        it('should set ERROR', () => {
+            expect(itemModel.ERROR).toBe(ItemModelError);
         });
 
         it('should have id', () => {
@@ -16,7 +20,6 @@ describe('ItemModel', () => {
         });
 
         it('should set id', () => {
-            itemModel.id = itemModel.newId;
             expect(itemModel.id).toBeDefined();
         });
 

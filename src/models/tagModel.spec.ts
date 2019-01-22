@@ -1,5 +1,6 @@
 import { TagModel } from './tagModel';
 import { RootStore, TagStore } from '../stores';
+import { TagModelError } from '../errors';
 
 describe('tagModel', () => {
     let tag: TagModel;
@@ -7,6 +8,10 @@ describe('tagModel', () => {
 
     beforeEach(() => {
         tag = new TagModel(type);
+    });
+
+    it('should set ERROR', () => {
+        expect(tag.ERROR).toBe(TagModelError);
     });
 
     it('should create new tag', () => {
