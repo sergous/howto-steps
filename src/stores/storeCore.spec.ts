@@ -1,10 +1,10 @@
 import { StoreCore, RootStore } from '.';
-import { CommonModel } from '../models';
+import { ItemModel } from '../models';
 import { StoreCoreError } from '../errors';
 
 describe('StoreCore', () => {
     let storeCore: StoreCore;
-    let item: CommonModel;
+    let item: ItemModel;
     beforeEach(() => {
         const rootStore = new RootStore();
         storeCore = new StoreCore(rootStore);
@@ -29,11 +29,11 @@ describe('StoreCore', () => {
 
     describe('add', () => {
         it('should add item with id', () => {
-            item = new CommonModel();
+            item = new ItemModel();
             expect(storeCore.add(item)).toBe(item);
         });
         it('should not add item with no id', () => {
-            item = new CommonModel();
+            item = new ItemModel();
             item.id = undefined;
             const addItem = () => storeCore.add(item);
             expect(addItem).toThrowError(StoreCoreError);
@@ -55,7 +55,7 @@ describe('StoreCore', () => {
 
         it('should not add same item', () => {
             const add = () => storeCore.add(item);
-            expect(add).toThrowError(storeCore.ERROR);
+            expect(add).toThrowError(StoreCoreError);
         });
 
         it('should update item', () => {
@@ -64,12 +64,12 @@ describe('StoreCore', () => {
             expect(i!.id).toEqual(item.id);
         });
         it('should not update item', () => {
-            const notExistingItem = <CommonModel>{
+            const notExistingItem = <ItemModel>{
                 ...item,
                 id: storeCore.newId,
             };
             const update = () => storeCore.update(notExistingItem);
-            expect(update).toThrowError(storeCore.ERROR);
+            expect(update).toThrowError(StoreCoreError);
         });
 
         it('should remove item', () => {
@@ -77,12 +77,12 @@ describe('StoreCore', () => {
             expect(storeCore.items).not.toContain(item);
         });
         it('should not remove item', () => {
-            const notExistingItem = <CommonModel>{
+            const notExistingItem = <ItemModel>{
                 ...item,
                 id: storeCore.newId,
             };
             const remove = () => storeCore.remove(notExistingItem);
-            expect(remove).toThrowError(storeCore.ERROR);
+            expect(remove).toThrowError(StoreCoreError);
         });
 
         describe('find', () => {

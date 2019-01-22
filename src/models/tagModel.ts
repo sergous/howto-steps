@@ -1,8 +1,8 @@
-import { CommonModel, TagType } from '.';
+import { ItemModel, TagType } from '.';
 import { observable } from 'mobx';
 import { TagStore } from '../stores';
 
-export class TagModel extends CommonModel {
+export class TagModel extends ItemModel {
     @observable private type_: TagType;
     static TYPE = TagType;
 

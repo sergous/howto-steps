@@ -1,8 +1,8 @@
-import { CommonModel, TagModel, QuestionModel, ItemsModel } from '.';
-import { observable, action } from 'mobx';
+import { ItemModel, QuestionModel, ItemsModel } from '.';
+import { observable } from 'mobx';
 import { QuestionRequestStore } from '../stores';
 
-export class QuestionRequestModel extends CommonModel {
+export class QuestionRequestModel extends ItemModel {
     @observable private question_?: QuestionModel;
 
     tags = new ItemsModel();

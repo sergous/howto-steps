@@ -1,8 +1,8 @@
-import { CommonModel } from '.';
+import { ItemModel } from '.';
 import { QuestionStore } from '../stores';
 import { observable } from 'mobx';
 
-export class QuestionModel extends CommonModel {
+export class QuestionModel extends ItemModel {
     @observable private query_: string;
 
     constructor(query: string = '', store?: QuestionStore) {

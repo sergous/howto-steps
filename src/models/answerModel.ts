@@ -1,8 +1,7 @@
-import { StepModel, CommonModel, TagModel, ItemsModel } from '.';
-import { action, observable } from 'mobx';
+import { ItemModel, ItemsModel } from '.';
 import { AnswerModelError } from '../errors';
 
-export class AnswerModel extends CommonModel {
+export class AnswerModel extends ItemModel {
     steps = new ItemsModel();
     tags = new ItemsModel();
 

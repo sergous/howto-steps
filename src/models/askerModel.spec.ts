@@ -1,6 +1,5 @@
 import { AskerModel, QuestionModel, UserData, SolutionModel } from '.';
 import { AskerModelError, RoleUserModelError } from '../errors';
-import { StoreCore } from '../stores';
 
 describe('askerModel', () => {
     let asker: AskerModel;
@@ -113,7 +112,7 @@ describe('askerModel', () => {
 
             beforeEach(() => {
                 solution = new SolutionModel();
-                solution.id = AskerModel.uniqId;
+                solution.id = solution.newId;
                 solution.question = question;
                 asker.resolve(solution);
 

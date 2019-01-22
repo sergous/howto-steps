@@ -1,9 +1,9 @@
-import { StoreCoreError, CommonModelError } from '.';
+import { StoreCoreError, ItemModelError } from '.';
 
 export class UserStoreError extends StoreCoreError {
     name = 'UserStoreError';
 }
-export class UserModelError extends CommonModelError {
+export class UserModelError extends ItemModelError {
     name = 'UserModelError';
 }
 

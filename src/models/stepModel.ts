@@ -1,8 +1,8 @@
-import { CommonModel, SolutionModel, ItemsModel } from '.';
-import { observable, action } from 'mobx';
+import { ItemModel, ItemsModel } from '.';
+import { observable } from 'mobx';
 import { StoreCore } from '../stores';
 
-export class StepModel extends CommonModel {
+export class StepModel extends ItemModel {
     @observable private name_: string;
     @observable private description_: string;
 

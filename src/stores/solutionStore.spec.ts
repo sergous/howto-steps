@@ -35,7 +35,7 @@ describe('solution store', () => {
         });
 
         it('should not add same solution', () => {
-            expect(() => store.add(solution)).toThrowError(store.ERROR);
+            expect(() => store.add(solution)).toThrowError(SolutionStoreError);
         });
 
         it('should update solution', () => {
@@ -51,7 +51,7 @@ describe('solution store', () => {
                 id: store.newId,
             };
             expect(() => store.update(notExistingSolution)).toThrowError(
-                store.ERROR,
+                SolutionStoreError,
             );
         });
 
@@ -65,7 +65,7 @@ describe('solution store', () => {
                 id: store.newId,
             };
             expect(() => store.remove(notExistingSolution)).toThrowError(
-                store.ERROR,
+                SolutionStoreError,
             );
         });
     });

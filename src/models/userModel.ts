@@ -1,8 +1,8 @@
-import { UserData, CommonModel, UserRole, RoleType } from '.';
+import { UserData, ItemModel, UserRole, RoleType } from '.';
 import { UserStore } from '../stores';
 import { observable } from 'mobx';
 
-export class UserModel extends CommonModel {
+export class UserModel extends ItemModel {
     static ROLE = RoleType;
     @observable name: string = '';
     @observable email: string = '';

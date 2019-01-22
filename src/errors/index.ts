@@ -1,9 +1,12 @@
-import { ItemsError, ItemsModelError } from './itemsError';
-import { CommonError, CommonModelError } from './commonError';
+import {
+    ItemError,
+    ItemModelError,
+    ItemsError,
+    ItemsModelError,
+} from './itemsError';
 import { StoreCoreError } from './storeCoreError';
 
-export { ItemsError, ItemsModelError };
-export { CommonError, CommonModelError };
+export { ItemError, ItemModelError, ItemsError, ItemsModelError };
 export { StoreCoreError };
 
 export * from './solutionError';

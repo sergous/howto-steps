@@ -1,45 +1,43 @@
-import { ItemModel, Id, CommonModel } from '.';
+import { Item, Id, ItemModel } from '.';
 import { ItemsModelError } from '../errors';
 import { action, observable } from 'mobx';
 
 export class ItemsModel {
     @action
-    static addItem = (items: ItemModel[]) => (item: ItemModel) => {
+    static addItem = (items: Item[]) => (item: Item) => {
         items.push(item);
         return items;
     };
 
     @action
-    static updateItem = (items: ItemModel[]) => (item: ItemModel) => {
+    static updateItem = (items: Item[]) => (item: Item) => {
         let foundItem = ItemsModel.findOneItem(items)(item);
         if (!foundItem) return;
         return Object.assign(foundItem, item);
     };
 
     @action
-    static removeItem = (items: ItemModel[]) => (
-        item: ItemModel,
-    ): ItemModel[] => items.filter(i => !!item.id && i.id !== item.id);
+    static removeItem = (items: Item[]) => (item: Item): Item[] =>
+        items.filter(i => !!item.id && i.id !== item.id);
 
-    static findOneItem = (items: ItemModel[]) => (
-        item: ItemModel,
-    ): ItemModel | undefined => items.find(i => !!item.id && i.id === item.id);
+    static findOneItem = (items: Item[]) => (item: Item): Item | undefined =>
+        items.find(i => !!item.id && i.id === item.id);
 
-    static findItemIndex = (items: ItemModel[]) => (
-        item: ItemModel,
+    static findItemIndex = (items: Item[]) => (
+        item: Item,
     ): number | undefined => {
         const index = items.findIndex(i => !!item.id && i.id === item.id);
         if (index === -1) return;
         return index;
     };
 
-    @observable private items_: ItemModel[] = [];
+    @observable private items_: Item[] = [];
 
-    constructor(items?: ItemModel[]) {
+    constructor(items?: Item[]) {
         if (items) this.items_ = items;
     }
 
-    set items(items: ItemModel[]) {
+    set items(items: Item[]) {
         this.items_ = items;
     }
 
@@ -48,18 +46,18 @@ export class ItemsModel {
     }
 
     get newId(): Id {
-        return CommonModel.uniqId;
+        return ItemModel.uniqId;
     }
 
     @action
-    create(item: ItemModel = new CommonModel()): ItemModel {
+    create(item: Item = new ItemModel()): Item {
         item.id = this.newId;
         this.add(item);
         return item;
     }
 
     @action
-    add(item: ItemModel): ItemModel {
+    add(item: Item): Item {
         if (!item.id) throw new this.ERROR('should have id');
         const found = this.findOne(item);
         if (found) throw new this.ERROR('already exists');
@@ -68,29 +66,29 @@ export class ItemsModel {
     }
 
     @action
-    update(item: ItemModel) {
+    update(item: Item) {
         this.findOneOrThrowError_(item);
         return ItemsModel.updateItem(this.items_)(item);
     }
 
     @action
-    remove(item: ItemModel) {
+    remove(item: Item) {
         this.findOneOrThrowError_(item);
         return (this.items_ = ItemsModel.removeItem(this.items_)(item));
     }
 
-    findOne(item: ItemModel) {
+    findOne(item: Item) {
         return ItemsModel.findOneItem(this.items_)(item);
     }
 
-    findIndex(item: ItemModel) {
+    findIndex(item: Item) {
         return ItemsModel.findItemIndex(this.items_)(item);
     }
 
     private findOneOrThrowError_(
-        item: ItemModel,
+        item: Item,
         errorMessage: string = 'not found',
-    ): ItemModel {
+    ): Item {
         let i = this.findIndex(item);
         if (i === undefined) throw new this.ERROR(errorMessage);
         return i;

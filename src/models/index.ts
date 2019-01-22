@@ -1,4 +1,4 @@
-import { CommonModel } from './commonModel';
+import { ItemModel } from './itemModel';
 export * from './datatypes';
 export * from './userModel';
 export * from './roleUserModel';
@@ -8,8 +8,7 @@ export * from './stepModel';
 export * from './answerModel';
 export * from './adviserModel';
 export * from './solutionModel';
-export * from './itemModel';
 export * from './tagModel';
 export * from './questionRequestModel';
 export * from './itemsModel';
-export { CommonModel };
+export { ItemModel };
