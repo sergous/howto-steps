@@ -1,5 +1,5 @@
 import { AskerModel, QuestionModel, UserData, SolutionModel } from '.';
-import { RoleUserModelError } from '../errors';
+import { RoleUserModelError, ItemsModelError } from '../errors';
 
 describe('askerModel', () => {
     let asker: AskerModel;
@@ -53,7 +53,7 @@ describe('askerModel', () => {
 
     describe('with question', () => {
         beforeEach(() => {
-            asker.ask(question);
+            asker.askQuestion(question);
         });
 
         describe('findQuestion', () => {
@@ -70,8 +70,8 @@ describe('askerModel', () => {
                 expect(asker.questions.items).toContain(question);
             });
             it('should not ask same question', () => {
-                const ask2 = () => asker.ask(question);
-                expect(ask2).toThrowError(RoleUserModelError);
+                const ask2 = () => asker.askQuestion(question);
+                expect(ask2).toThrowError(ItemsModelError);
             });
             it('should not have not asked question', () => {
                 const newQuestion = new QuestionModel('How to push?');
@@ -79,18 +79,18 @@ describe('askerModel', () => {
             });
         });
 
-        describe('resolve question', () => {
+        describe('accept solution', () => {
             let solution: SolutionModel;
             beforeEach(() => {
                 solution = new SolutionModel();
             });
-            it('should not resolve unknown question', () => {
-                const resolve = () => asker.resolve(solution);
-                expect(resolve).toThrowError(RoleUserModelError);
+            it('should not accept solution for unknown question', () => {
+                const accept = () => asker.acceptSolution(solution);
+                expect(accept).toThrowError(ItemsModelError);
             });
-            it('should resolve existing question', () => {
+            it('should accept solution for existing question', () => {
                 solution.question = question;
-                asker.resolve(solution);
+                asker.acceptSolution(solution);
                 expect(asker.questions.items).not.toContain(question);
                 expect(asker.solutions.items).toContain(solution);
             });
@@ -117,7 +117,7 @@ describe('askerModel', () => {
             beforeEach(() => {
                 solution = new SolutionModel();
                 solution.question = question;
-                asker.resolve(solution);
+                asker.acceptSolution(solution);
 
                 solution2 = new SolutionModel();
             });

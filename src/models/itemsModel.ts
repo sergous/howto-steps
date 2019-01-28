@@ -26,7 +26,9 @@ export class ItemsModel {
     static findItemIndex = (items: Item[]) => (
         item: Item,
     ): number | undefined => {
-        const index = items.findIndex(i => !!item.id && i.id === item.id);
+        const index = items.findIndex(
+            i => !!item && !!item.id && i.id === item.id,
+        );
         if (index === -1) return;
         return index;
     };

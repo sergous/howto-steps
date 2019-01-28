@@ -1,17 +1,21 @@
-import { QuestionModel } from '.';
+import { QuestionModel, ItemsModel, SolutionModel } from '.';
 import { RoleUserModel } from '.';
-import { observable, action } from 'mobx';
+import { action } from 'mobx';
 
 export class AdviserModel extends RoleUserModel {
-    @observable private questions_: QuestionModel[] = [];
+    questions = new ItemsModel();
+    solutions = new ItemsModel();
     role = AdviserModel.ROLE.Adviser;
 
     @action
-    answer(question: QuestionModel) {
-        this.questions_.push(question);
+    assignQuestion(question: QuestionModel) {
+        this.questions.add(question);
     }
 
-    get questions() {
-        return this.questions_;
+    @action
+    adviseSolution(solution: SolutionModel) {
+        const question = solution.question;
+        this.questions.remove(question);
+        this.solutions.add(solution);
     }
 }

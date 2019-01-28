@@ -1,7 +1,7 @@
 import { QuestionModel } from './questionModel';
-import { AdviserModel } from '.';
+import { AdviserModel, SolutionModel } from '.';
 import { UserData } from '.';
-import { RoleUserModelError } from '../errors';
+import { RoleUserModelError, ItemsModelError } from '../errors';
 
 describe('adviserModel', () => {
     let adviser: AdviserModel;
@@ -15,6 +15,7 @@ describe('adviserModel', () => {
         };
         adviser = new AdviserModel(advisorData);
         question = new QuestionModel('How many miles in one kilometer');
+        question.id = 'questionId';
     });
 
     it('should set ERROR', () => {
@@ -36,8 +37,8 @@ describe('adviserModel', () => {
     });
 
     it('should answer new question', () => {
-        adviser.answer(question);
-        expect(adviser.questions).toContain(question);
+        adviser.assignQuestion(question);
+        expect(adviser.questions.items).toContain(question);
     });
 
     it('should have adviser role', () => {
@@ -47,5 +48,42 @@ describe('adviserModel', () => {
     it('should not change role', () => {
         const updateRole = () => (adviser.role = AdviserModel.ROLE.Asker);
         expect(updateRole).toThrowError(RoleUserModelError);
+    });
+
+    describe('with question', () => {
+        beforeEach(() => {
+            adviser.assignQuestion(question);
+        });
+
+        describe('assign question', () => {
+            it('should assign new question', () => {
+                expect(adviser.questions.items).toContain(question);
+            });
+            it('should not assign same question', () => {
+                const assign2 = () => adviser.assignQuestion(question);
+                expect(assign2).toThrowError(ItemsModelError);
+            });
+            it('should not have not assigned question', () => {
+                const newQuestion = new QuestionModel('How to push?');
+                expect(adviser.questions).not.toContain(newQuestion);
+            });
+        });
+
+        describe('advise solution', () => {
+            let solution: SolutionModel;
+            beforeEach(() => {
+                solution = new SolutionModel();
+            });
+            it('should not advise solution for unknown question', () => {
+                const advise = () => adviser.adviseSolution(solution);
+                expect(advise).toThrowError(ItemsModelError);
+            });
+            it('should advise solution for existing question', () => {
+                solution.question = question;
+                adviser.adviseSolution(solution);
+                expect(adviser.questions.items).not.toContain(question);
+                expect(adviser.solutions.items).toContain(solution);
+            });
+        });
     });
 });
