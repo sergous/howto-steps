@@ -7,6 +7,7 @@ export * from './questionModel';
 export * from './stepModel';
 export * from './answerModel';
 export * from './adviserModel';
+export * from './reviewerModel';
 export * from './solutionModel';
 export * from './tagModel';
 export * from './questionRequestModel';
