@@ -46,7 +46,7 @@ describe('questionRequestModel', () => {
 
         it('should remove tag', () => {
             request.tags.remove(tag);
-            expect(request.tags).not.toContain(tag);
+            expect(request.tags.items).not.toContain(tag);
         });
     });
 

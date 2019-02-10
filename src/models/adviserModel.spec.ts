@@ -65,7 +65,7 @@ describe('adviserModel', () => {
             });
             it('should not have not assigned question', () => {
                 const newQuestion = new QuestionModel('How to push?');
-                expect(adviser.questions).not.toContain(newQuestion);
+                expect(adviser.questions.items).not.toContain(newQuestion);
             });
         });
 

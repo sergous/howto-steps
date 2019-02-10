@@ -39,7 +39,7 @@ describe('answerModel', () => {
 
         it('should remove step', () => {
             answer.steps.remove(step);
-            expect(answer.steps).not.toContain(step);
+            expect(answer.steps.items).not.toContain(step);
         });
     });
 
@@ -60,7 +60,7 @@ describe('answerModel', () => {
 
         it('should remove tag', () => {
             answer.tags.remove(tag);
-            expect(answer.tags).not.toContain(tag);
+            expect(answer.tags.items).not.toContain(tag);
         });
     });
 

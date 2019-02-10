@@ -75,7 +75,7 @@ describe('askerModel', () => {
             });
             it('should not have not asked question', () => {
                 const newQuestion = new QuestionModel('How to push?');
-                expect(asker.questions).not.toContain(newQuestion);
+                expect(asker.questions.items).not.toContain(newQuestion);
             });
         });
 
@@ -99,7 +99,7 @@ describe('askerModel', () => {
         describe('remove question', () => {
             it('should remove question', () => {
                 asker.questions.remove(question);
-                expect(asker.questions).not.toContain(question);
+                expect(asker.questions.items).not.toContain(question);
             });
             xit('should not remove question', () => {
                 const unknownQuestion = new QuestionModel();
@@ -129,7 +129,7 @@ describe('askerModel', () => {
             describe('remove solution', () => {
                 it('should remove soluton', () => {
                     asker.solutions.remove(solution);
-                    expect(asker.solutions).not.toContain(solution);
+                    expect(asker.solutions.items).not.toContain(solution);
                 });
                 xit('should not remove solution', () => {
                     const remove = () => asker.solutions.remove(solution2);

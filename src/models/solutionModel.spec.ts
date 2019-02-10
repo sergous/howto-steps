@@ -76,7 +76,7 @@ describe('SolutionModel', () => {
             });
             it('should remove answer', () => {
                 solution.answers.remove(answer);
-                expect(solution.answers).not.toContain(answer);
+                expect(solution.answers.items).not.toContain(answer);
             });
         });
     });
