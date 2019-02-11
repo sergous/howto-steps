@@ -9,6 +9,12 @@ export class ItemModel {
         return uniqid();
     }
 
+    static isContains(str: string, query: string) {
+        return (
+            str.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1
+        );
+    }
+
     @observable protected id_?: Id;
     @observable private createTime_?: Datetime;
     @observable private updateTime_?: Datetime;
