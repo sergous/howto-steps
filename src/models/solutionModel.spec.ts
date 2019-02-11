@@ -1,4 +1,11 @@
-import { SolutionModel, StepModel, AnswerModel, QuestionModel } from '.';
+import {
+    SolutionModel,
+    StepModel,
+    AnswerModel,
+    QuestionModel,
+    ReviewStatus,
+    PublishStatus,
+} from '.';
 import { RootStore, SolutionStore } from '../stores';
 import { SolutionModelError } from '../errors';
 
@@ -13,6 +20,26 @@ describe('SolutionModel', () => {
     describe('with solution', () => {
         beforeEach(() => {
             solution = new SolutionModel();
+        });
+
+        describe('status', () => {
+            it('should set default review status', () => {
+                expect(solution.status.review).toBe(ReviewStatus.Pending);
+            });
+
+            it('should set defualt publish status', () => {
+                expect(solution.status.publish).toBe(PublishStatus.Proposed);
+            });
+
+            it('should set review status', () => {
+                solution.status.review = ReviewStatus.Accepted;
+                expect(solution.status.review).toBe(ReviewStatus.Accepted);
+            });
+
+            it('should set publish status', () => {
+                solution.status.publish = PublishStatus.Published;
+                expect(solution.status.publish).toBe(PublishStatus.Published);
+            });
         });
 
         it('should set ERROR', () => {

@@ -16,3 +16,4 @@ export * from './requestError';
 export * from './questionError';
 export * from './tagError';
 export * from './stepError';
+export * from './statusError';

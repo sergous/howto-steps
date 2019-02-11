@@ -9,6 +9,7 @@ export * from './answerModel';
 export * from './adviserModel';
 export * from './reviewerModel';
 export * from './solutionModel';
+export * from './statusModel';
 export * from './tagModel';
 export * from './questionRequestModel';
 export * from './itemsModel';
