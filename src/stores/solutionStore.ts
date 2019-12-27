@@ -1,5 +1,5 @@
 import { StoreCore } from '.';
-import { SolutionModel } from '../models';
+import { SolutionModel, QuestionModel } from '../models';
 import { SolutionStoreError } from '../errors';
 import { observable, computed } from 'mobx';
 
@@ -26,5 +26,11 @@ export class SolutionStore extends StoreCore {
             (s: SolutionModel) =>
                 s.isQuestionContains(this.solutionQuery),
         );
+    }
+
+    createFromQuery() {
+        const solution = new SolutionModel();
+        solution.question = new QuestionModel(this.solutionQuery);
+        this.add(solution);
     }
 }
