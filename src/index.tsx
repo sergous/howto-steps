@@ -7,6 +7,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RootStore } from './stores';
 
+const Parse = require('parse');
+
+Parse.initialize(process.env.REACT_APP_APPLICATION_ID);
+Parse.serverURL = process.env.REACT_APP_SERVER_URL;
+
 const PERSIST_STORE = 'persistRootStore';
 
 if (process.env.NODE_ENV === 'production') {
@@ -49,7 +54,7 @@ function runDevelopment() {
                 rehydrate().then(() => console.log('rootStore rehydrated'));
 
                 renderApp(persistRootStore);
-            },
+            }
         );
     }
 }
@@ -59,7 +64,7 @@ function renderApp(rootStore: RootStore) {
         <Provider rootStore={rootStore}>
             <App />
         </Provider>,
-        document.getElementById('root'),
+        document.getElementById('root')
     );
 }
 

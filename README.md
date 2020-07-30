@@ -7,6 +7,18 @@ _For more examples and usage, please refer to the [Wiki][wiki-url] and [<img src
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Configure Parse Server backend
+
+Backend Code: [sergous/parse-express-server](https://github.com/sergous/parse-express-server)
+
+Add server to file .env.development.local:
+
+```
+REACT_APP_APPLICATION_ID=APPLICATIONIDFROMYOURPARSERBACKEND
+REACT_APP_SERVER_URL=http://localhost:8000/parse
+
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -52,7 +64,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Contributing
 
-Kanban development board with current tasks on 
+Kanban development board with current tasks on
 [<img src="https://d33wubrfki0l68.cloudfront.net/879d8e40573d7118cbc5d5e95544c2bce8fa5143/a5f17/images/2013/pivotal-tracker-fluid-icon-2013.png"  width="18" height="18" style="vertical-align: middle;padding:2px"> PivotalTracker][pivotal-url].
 
 1. Fork it (<https://github.com/sergous/howto-steps/fork>)
@@ -62,5 +74,6 @@ Kanban development board with current tasks on
 5. Create a new Pull Request
 
 <!-- Markdown link & img dfn's -->
+
 [pivotal-url]: https://www.pivotaltracker.com/n/projects/2267174
 [wiki-url]: https://github.com/sergous/howto-steps/wiki
