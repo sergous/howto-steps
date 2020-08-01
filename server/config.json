@@ -1,0 +1,12 @@
+{
+  "appId": "from .env file",
+  "masterKey": "from .env file",
+  "appName": "parse-tutorial",
+  "cloud": "./cloud/main",
+  "databaseURI": "mongodb://127.0.0.1:27017/parse",
+  "serverURL": "http://localhost:8000/parse",
+  "publicServerURL": "http://localhost:8000/parse",
+  "graphQLServerURL": "http://localhost:8000/graphql",
+  "graphQLPath": "/graphql",
+  "playgroundPath": "/playground"
+}
