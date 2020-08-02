@@ -18,6 +18,6 @@ export class SolutionModel extends ItemModel {
     }
 
     isQuestionContains(query: string) {
-        return SolutionModel.isContains(this.question!.query, query);
+        return SolutionModel.isContains(this.question!.attributes.query, query);
     }
 }

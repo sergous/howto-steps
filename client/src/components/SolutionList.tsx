@@ -22,17 +22,25 @@ class SolutionList extends Component<RootStoreProps> {
                     onSearch={this.solutionStore.search}
                     enterButton
                 />
-                {this.solutionStore.foundSolutions.length > 0
-                    ? <List
+                {this.solutionStore.foundSolutions.length > 0 ? (
+                    <List
                         itemLayout="horizontal"
                         dataSource={this.solutionStore.foundSolutions}
                         renderItem={(item: SolutionModel) => (
                             <List.Item>
-                                <List.Item.Meta title={item.question!.query} />
+                                <List.Item.Meta
+                                    title={item.question!.attributes.query}
+                                />
                             </List.Item>
                         )}
                     />
-                    : <Button onClick={() => this.solutionStore.createFromQuery()}>Publish Question</Button>}
+                ) : (
+                    <Button
+                        onClick={() => this.solutionStore.createFromQuery()}
+                    >
+                        Publish Question
+                    </Button>
+                )}
             </Layout>
         );
     }

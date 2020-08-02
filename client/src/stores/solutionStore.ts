@@ -1,7 +1,7 @@
 import { StoreCore } from '.';
 import { SolutionModel, QuestionModel } from '../models';
 import { SolutionStoreError } from '../errors';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 
 export class SolutionStore extends StoreCore {
     ERROR = SolutionStoreError;
@@ -16,21 +16,23 @@ export class SolutionStore extends StoreCore {
         return <SolutionModel[]>this.items;
     }
 
+    @action
     readonly search = (query: string) => {
         this.solutionQuery = query;
     };
 
     @computed
     get foundSolutions() {
-        return this.solutions.filter(
-            (s: SolutionModel) =>
-                s.isQuestionContains(this.solutionQuery),
+        return this.solutions.filter((s: SolutionModel) =>
+            s.isQuestionContains(this.solutionQuery)
         );
     }
 
-    createFromQuery() {
+    async createFromQuery() {
         const solution = new SolutionModel();
-        solution.question = new QuestionModel(this.solutionQuery);
+        solution.question = await this.rootStore.questionStore.createOne(
+            this.solutionQuery
+        );
         this.add(solution);
     }
 }
