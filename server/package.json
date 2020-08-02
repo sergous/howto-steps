@@ -1,13 +1,15 @@
 {
-  "name": "parse-tutorial",
-  "description": "parse-server for parse-tutorial",
-  "scripts": {
-    "start:db": "mongodb-runner start",
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "parse-dashboard": "^2.1.0",
-    "parse-server": "^3.9.0"
-  }
+    "name": "howto-steps-server",
+    "description": "parse-server for howto-steps app",
+    "version": "0.0.1",
+    "license": "GPL-3.0-or-later",
+    "scripts": {
+        "start:db": "mongodb-runner start",
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "parse-dashboard": "^2.1.0",
+        "parse-server": "^3.9.0"
+    }
 }

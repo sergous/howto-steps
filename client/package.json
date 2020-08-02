@@ -1,7 +1,8 @@
 {
-    "name": "howto-steps",
-    "description": "Universal How to project. Question - answer step-by-step service.",
-    "version": "0.0.1",
+    "name": "howto-steps-client",
+    "description": "howto-steps react app",
+    "version": "0.0.2",
+    "license": "GPL-3.0-or-later",
     "private": true,
     "scripts": {
         "start": "react-scripts start",

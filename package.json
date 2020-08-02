@@ -1,0 +1,20 @@
+{
+    "name": "howto-steps",
+    "description": "Universal How to project. Question - answer step-by-step app.",
+    "license": "GPL-3.0-or-later",
+    "author": {
+        "name": "Sergous",
+        "email": "sergous@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sergous/howto-steps.git"
+    },
+    "scripts": {
+        "install:server": "cd server; yarn install",
+        "install:client": "cd client; yarn install",
+        "start:db": "cd server; yarn start:db",
+        "start:server": "cd server; yarn start",
+        "start:client": "cd client; yarn start"
+    }
+}
