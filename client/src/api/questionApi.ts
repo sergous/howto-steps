@@ -1,5 +1,5 @@
 import Parse from 'parse';
-import ParseMobx from 'parse-mobx';
+import { ParseMobx } from 'parse-mobx';
 import { action } from 'mobx';
 import { QuestionModel } from '../models';
 
@@ -15,7 +15,17 @@ export class QuestionApi {
     }
 
     @action
-    async deleteOne(questions: QuestionModel[], question: QuestionModel) {
+    async updateOneAttr(question: QuestionModel, name: string, value: any) {
+        return await question.set(name, value).save();
+    }
+
+    @action
+    async deleteOne(question: QuestionModel) {
+        return await question.destroy();
+    }
+
+    @action
+    async deleteListItem(questions: QuestionModel[], question: QuestionModel) {
         await ParseMobx.deleteListItem(questions, question);
     }
 

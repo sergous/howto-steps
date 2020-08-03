@@ -29,15 +29,15 @@ export class QuestionStore extends StoreCore {
     }
 
     @action
-    updateAttr(question: QuestionModel, name: string, value: any) {
-        question.set(name, value).save();
+    updateOneAttr(question: QuestionModel, name: string, value: any) {
+        this.api.updateOneAttr(question, name, value);
     }
 
     @action
-    async removeOne(question: QuestionModel) {
-        await question.destroy();
+    async deleteOne(question: QuestionModel) {
+        await this.api.deleteOne(question);
         runInAction(() => {
-            this.api.deleteOne(this.questions, question);
+            this.api.deleteListItem(this.questions, question);
         });
     }
 
