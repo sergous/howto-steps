@@ -8,6 +8,7 @@ import {
     RequestStore,
 } from '.';
 import { UserStore } from './userStore';
+import { QuestionApi } from '../api';
 
 export class RootStore {
     uiStore: UiStore;
@@ -21,7 +22,7 @@ export class RootStore {
 
     constructor() {
         this.uiStore = new UiStore(this);
-        this.questionStore = new QuestionStore(this);
+        this.questionStore = new QuestionStore(this, new QuestionApi());
         this.solutionStore = new SolutionStore(this);
         this.answerStore = new AnswerStore(this);
         this.stepStore = new StepStore(this);

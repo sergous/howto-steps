@@ -1,17 +1,15 @@
-import { StoreCore } from '.';
+import { StoreCore, RootStore } from '.';
 import { QuestionModel } from '../models';
 import { QuestionStoreError } from '../errors';
-import { observable, action, computed, runInAction } from 'mobx';
-
-const Parse = require('parse');
-const { ParseMobx } = require('parse-mobx');
-
-const QUESTION = 'Question';
-
-const Question = Parse.Object.extend(QUESTION);
+import { action, runInAction } from 'mobx';
+import { QuestionApi } from '../api';
 
 export class QuestionStore extends StoreCore {
     ERROR = QuestionStoreError;
+
+    constructor(rootStore: RootStore, private api: QuestionApi) {
+        super(rootStore);
+    }
 
     set questions(questions: QuestionModel[]) {
         this.items = questions;
@@ -23,9 +21,9 @@ export class QuestionStore extends StoreCore {
 
     @action
     async createOne(query: string): Promise<QuestionModel> {
-        const question = await new Question().set('query', query).save();
+        const question = await this.api.createOne(query);
         runInAction(() => {
-            this.questions.push(ParseMobx.toParseMobx(question));
+            this.questions.push(question);
         });
         return question;
     }
@@ -39,20 +37,15 @@ export class QuestionStore extends StoreCore {
     async removeOne(question: QuestionModel) {
         await question.destroy();
         runInAction(() => {
-            ParseMobx.deleteListItem(this.questions, question);
+            this.api.deleteOne(this.questions, question);
         });
     }
 
     @action
     async fetchAll() {
-        const questions = await this.findAll();
+        const questions = await this.api.findAll();
         runInAction(() => {
-            this.questions = ParseMobx.toParseMobx(questions);
+            this.questions = questions;
         });
-    }
-
-    @action
-    async findAll() {
-        return await new Parse.Query(QUESTION).find();
     }
 }

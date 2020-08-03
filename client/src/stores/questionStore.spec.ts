@@ -1,13 +1,14 @@
 import { RootStore, QuestionStore } from '.';
-import { QuestionModel } from '../models';
 import { QuestionStoreError } from '../errors';
+import { QuestionApi } from '../api';
 
 describe('question store', () => {
     let store: QuestionStore;
+    const apiMock = new QuestionApi();
 
     beforeEach(() => {
-        const rootStore = new RootStore();
-        store = rootStore.questionStore;
+        store = new QuestionStore(new RootStore(), apiMock);
+        spyOn(apiMock, 'createOne');
     });
 
     it('should hold ref to root store', () => {
@@ -16,25 +17,12 @@ describe('question store', () => {
         expect(store.rootStore).toBeInstanceOf(RootStore);
     });
 
-    it('should add new question', () => {
-        const question = new QuestionModel('How is the whether today?');
-        store.add(question);
-        expect(store.questions).toContain(question);
+    it('should create a question', () => {
+        const query = 'When is the best time?';
+        store.createOne(query);
+        expect(apiMock.createOne).toHaveBeenCalled();
     });
-
     it('should set ERROR', () => {
         expect(store.ERROR).toBe(QuestionStoreError);
-    });
-
-    describe('with question', () => {
-        let question: QuestionModel;
-
-        beforeEach(() => {
-            question = new QuestionModel('When is the best time?', store);
-        });
-
-        it('should have question', () => {
-            expect(store.questions).toContain(question);
-        });
     });
 });
