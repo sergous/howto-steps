@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Parse from 'parse';
 import { Provider } from 'mobx-react';
 import { create, persist } from 'mobx-persist';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { RootStore } from './stores';
-
-const Parse = require('parse');
 
 Parse.initialize(process.env.REACT_APP_APPLICATION_ID);
 Parse.serverURL = process.env.REACT_APP_SERVER_URL;

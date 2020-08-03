@@ -1,8 +1,7 @@
+import Parse from 'parse';
+import ParseMobx from 'parse-mobx';
 import { action } from 'mobx';
 import { QuestionModel } from '../models';
-
-const Parse = require('parse');
-const { ParseMobx } = require('parse-mobx');
 
 const QUESTION = 'Question';
 
