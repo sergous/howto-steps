@@ -5,13 +5,19 @@ import { QuestionModel } from '../models';
 
 const QUESTION = 'Question';
 
-export const Question = Parse.Object.extend(QUESTION);
-
 export class QuestionApi {
+    question: any;
+    query: any;
+
+    constructor(public parse: any = Parse, public parseMobx: any = ParseMobx) {
+        this.query = new parse.Query(QUESTION);
+        this.question = new parse.Object.extend(QUESTION);
+    }
+
     @action
     async createOne(query: string) {
-        const question = await new Question().set('query', query).save();
-        return ParseMobx.toParseMobx(question);
+        const question = await this.question.set('query', query).save();
+        return this.parseMobx.toParseMobx(question);
     }
 
     @action
@@ -26,12 +32,12 @@ export class QuestionApi {
 
     @action
     async deleteListItem(questions: QuestionModel[], question: QuestionModel) {
-        await ParseMobx.deleteListItem(questions, question);
+        await this.parseMobx.deleteListItem(questions, question);
     }
 
     @action
     async findAll() {
-        const questions = await new Parse.Query(QUESTION).find();
-        return ParseMobx.toParseMobx(questions);
+        const questions = await this.query.find();
+        return this.parseMobx.toParseMobx(questions);
     }
 }
