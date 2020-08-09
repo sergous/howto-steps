@@ -1,19 +1,24 @@
 import { RootStore, QuestionStore } from '.';
 import { QuestionStoreError } from '../errors';
-import { QuestionApi } from '../api';
 import { QuestionModel } from '../models';
+import { createSpyObj } from '../utils';
+import { QuestionApi } from '../api';
 
 describe('question store', () => {
     let store: QuestionStore;
-    const apiMock = new QuestionApi();
+    const apiMock = createSpyObj('QuestionApiSpy', [
+        'createOne',
+        'updateOneAttr',
+        'deleteOne',
+        'deleteListItem',
+        'findAll',
+    ]);
 
     beforeEach(() => {
-        store = new QuestionStore(new RootStore(), apiMock);
-        spyOn(apiMock, 'createOne');
-        spyOn(apiMock, 'updateOneAttr');
-        spyOn(apiMock, 'deleteOne').and.returnValue(Promise.resolve);
-        spyOn(apiMock, 'deleteListItem');
-        spyOn(apiMock, 'findAll');
+        store = new QuestionStore(new RootStore(), <QuestionApi>(
+            (<unknown>apiMock)
+        ));
+        apiMock.deleteOne.mockReturnValue(Promise.resolve);
     });
 
     it('should hold ref to root store', () => {
